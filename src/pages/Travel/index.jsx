@@ -11,16 +11,11 @@ const Travel = () => {
 
     const [results, setResults] = useState([])
 	
-	const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNjA0ZDZlMGFjMjNkNzYxNWU2MDUyMyIsImlhdCI6MTYzMzk1MzU5MiwiZXhwIjoxNjM0MDM5OTkyfQ.1KfkY2oFvoJRrOLt67WsG_Y2B9QUMq1rJS_9a-y5OgM";
-    console.log(token, results)
   
 	useEffect(()=> {
 
 		api.get('travel_all', {
-			headers: {
-				Authorization: `Bearer ${token}`,
-	
-			   }
+			
 		})
 		.then(response => {
 			setResults(response.data.travelers)
@@ -29,7 +24,7 @@ const Travel = () => {
 		})
 		.catch(error => console.log(error))
 
-	},[token]);
+	},[]);
         
 
     return (
