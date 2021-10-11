@@ -10,7 +10,7 @@ import api from '../../services/api'
 const Travel = () => {
 
     const [results, setResults] = useState([])
-	
+	console.log(results)
   
 	useEffect(()=> {
 
