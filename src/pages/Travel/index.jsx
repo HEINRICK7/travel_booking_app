@@ -36,7 +36,11 @@ const Travel = () => {
                     <div className="travel_card">
                         <p key={result._id}></p>
                         <img src={result.image_url} alt={result.name} />
+                        <p>{result.price}</p>
                         <h2>{result.name}</h2>
+                        <p>Saida</p>
+                        <p>Chegada</p>
+                        <p>{result.quant_day}</p>
                     </div>
 					
                 </>
