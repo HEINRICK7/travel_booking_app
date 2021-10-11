@@ -28,26 +28,37 @@ const Travel = () => {
         
 
     return (
-        <div>
-            <Header />
+        <div className="travel">
+            <Header className="header" />
             <div className="container_travel">
                 {results.map(result => (
-                <>  
+                <div className="travel">  
                     <div className="travel_card">
                         <p key={result._id}></p>
-                        <img src={result.image_url} alt={result.name} />
-                        <p>{result.price}</p>
-                        <h2>{result.name}</h2>
-                        <p>Saida</p>
-                        <p>Chegada</p>
-                        <p>{result.quant_day}</p>
+                        <img className="image"src={result.image_url} alt={result.name} />
+                        <h5 className="price">R${result.price}</h5>
+                        <div>
+                            <h2 className="name">{result.name}</h2>
+                            <p className="city">{result.city}-{((result.state).substr(-20, 2)).toUpperCase()}</p>
+                        </div>
+                        <div className="saida_chegada">
+                            <p className="saida">Saida</p>
+                            <p className="chegada">Chegada</p> 
+                           
+                        </div> 
+                        
+                        <div className="dias">
+                            <h2>0{result.quant_day}<br/>dia(s)</h2>
+                           
+                        </div>
+                        
                     </div>
 					
-                </>
+                </div>
             ))}
             </div>
             
-            <Footer />
+            <Footer className="footer"/>
         </div>
     );
 }

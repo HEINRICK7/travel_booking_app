@@ -1,27 +1,121 @@
-.container_travel {
-   
-    margin: 70px 70px;
+.travel {
     display: grid;
-    justify-content: center;
-    align-items: center;
-    justify-items: center;
+}
+.container_travel {
+    height: 100vh;
+    margin: 30px 70px;
+    display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    
-    column-gap: 10px;
+   
+    column-gap: 30px;
 }
 .travel_card {
-    
+    display: grid;
     width: 282px;
     height: 377px;
 
     background: #FFFFFF;
     border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+.travel {
+	grid-template-areas:
+		"header"
+		"container_travel "
+		"footer" 
+		;
+}
+.header {
+    grid-area: header;
 
+}
+.container_travel {
+    grid-area: container_travel;
+}
+.footer {
+    grid-area: footer;
+}
 .travel_card img {
     
+    filter: brightness(70%);
     width: 282px;
     height: 277px;
 
     border-radius: 20px;
+}
+.travel_card img:hover{
+    
+    filter: brightness(100%);
+   
+}
+.travel_card h5.price {
+    width: 90px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 8px;
+    position: relative;
+    right: 120px;
+    top: 20px;
+    background: #FFFFFF;
+    color: #4759F9;
+    padding: 2px;
+
+    font-style: normal;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 41px;
+}
+.travel_card h2.name {
+    position: relative;
+    top:-70px;
+    text-align: center;
+
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+.travel_card .city {
+    position: relative;
+    top:-75px;
+    text-align: center;
+    
+    font-size: 18px;
+    font-weight: normal;
+    color:#FFFFFF;
+}
+.travel_card .saida_chegada{
+    height: 25px;
+    position: relative;
+    top:-50px;
+    border-bottom: 2px solid #4759F9;
+}
+.travel_card .saida {
+    padding: 0 10px;
+    float: left;
+    color: #635995;
+    
+}
+.travel_card .chegada {
+    padding: 0 10px;
+    float: right;
+    color: #635995;
+}
+.travel_card .dias {
+    position: relative;
+    top:-10px;
+    left: -214%;
+
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 25px;
+    color: #635995;
+
+
+}
+@media screen and (max-width: 960px){
+    .container_travel {
+        margin: 100px 70px;
+        row-gap: 50px;
+    }    
 }
