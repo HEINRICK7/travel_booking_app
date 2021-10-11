@@ -8,7 +8,7 @@ import { FiMenu, FiX } from 'react-icons/fi';
 const Header = () => {
 
     const [click, setClick] = useState(false);
-    const [setButton] = useState(true);
+    const [button, setButton] = useState(true);
 
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
@@ -23,7 +23,7 @@ const Header = () => {
 
     useEffect(() => {
       showButton();
-    }, []);
+    }, [button]);
 
     window.addEventListener('resize', showButton);
 
