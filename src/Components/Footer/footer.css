@@ -1,0 +1,38 @@
+.footer {
+    display: grid;
+    padding: 20px 0;
+    background: rgb(95, 85, 85);
+}
+
+p {
+	grid-area: p;
+}
+
+.social {
+	grid-area: social;
+    justify-items:self-end;
+}
+
+
+.social ul li{
+    display: inline;
+    margin: 30px;
+    font-size: 25px;
+}
+
+.footer {
+	grid-template-areas:
+		" . . . . p social";
+}
+
+@media screen and (max-width: 960px){
+    .footer {
+        text-align: center;
+        display: block;
+        font-size: 18px;
+    }
+    .social {
+        margin-top: 30px;
+    }
+    
+}

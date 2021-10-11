@@ -1,0 +1,27 @@
+.container_travel {
+   
+    margin: 70px 70px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    
+    column-gap: 10px;
+}
+.travel_card {
+    
+    width: 282px;
+    height: 377px;
+
+    background: #FFFFFF;
+    border-radius: 20px;
+}
+
+.travel_card img {
+    
+    width: 282px;
+    height: 277px;
+
+    border-radius: 20px;
+}
