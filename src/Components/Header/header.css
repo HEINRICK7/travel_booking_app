@@ -77,7 +77,7 @@
         top: 100px;
         left: -120%;
         opacity: 1;
-        transition: al 0.5s ease;
+        transition: all 0.5s ease;
       }
     
       .nav-menu.active {
