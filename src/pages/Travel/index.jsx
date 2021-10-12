@@ -1,4 +1,6 @@
 import React,{ useState, useEffect} from 'react';
+
+import { Link } from 'react-router-dom';
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
 import moment from 'moment';
@@ -22,7 +24,6 @@ const Travel = () => {
 		})
 		.then(response => {
 			setResults(response.data.travelers)
-            console.log(response.data)
 			
 		})
 		.catch(error => console.log(error))
@@ -36,7 +37,8 @@ const Travel = () => {
             <div className="container_travel">
                 {results.map(result => (
                 <>  
-                    <div className="travel_card">
+                    <Link className="travel_details" to={`./travel_details/${result._id}`} >
+                        <div className="travel_card">
                         <p key={result._id}></p>
                         <img className="image"src={result.image_url} alt={result.name} />
                         <h5 className="price">R${result.price}</h5>
@@ -69,6 +71,8 @@ const Travel = () => {
                         </div>
                         
                     </div>
+                    </Link>
+                    
 					
                 </>
             ))}

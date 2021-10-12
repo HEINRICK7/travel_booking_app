@@ -115,7 +115,10 @@
     float: right;
     line-height: 25px;
 }
+.travel_details {
+    text-decoration: none;
 
+}
 @media screen and (max-width: 960px){
     
     .container_travel {
