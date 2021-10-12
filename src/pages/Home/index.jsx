@@ -20,6 +20,7 @@ const Home = () => {
                 </Link>
                 
             </div>
+            <h1>Henrique</h1>
             <div className="section_right">
             <img className="Image1" src={Image1} alt="logo" />
             <img className="Image2" src={Image2} alt="logo" />
