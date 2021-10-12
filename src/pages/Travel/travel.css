@@ -1,6 +1,4 @@
-.travel {
-    display: grid;
-}
+
 .container_travel {
     height: 100vh;
     margin: 30px 70px;
@@ -17,23 +15,6 @@
     background: #FFFFFF;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-.travel {
-	grid-template-areas:
-		"header"
-		"container_travel "
-		"footer" 
-		;
-}
-.header {
-    grid-area: header;
-
-}
-.container_travel {
-    grid-area: container_travel;
-}
-.footer {
-    grid-area: footer;
 }
 .travel_card img {
     
@@ -82,40 +63,64 @@
     font-size: 18px;
     font-weight: normal;
     color:#FFFFFF;
+   
 }
 .travel_card .saida_chegada{
     height: 25px;
     position: relative;
     top:-50px;
     border-bottom: 2px solid #4759F9;
+    
 }
 .travel_card .saida {
     padding: 0 10px;
     float: left;
     color: #635995;
     
+    
 }
 .travel_card .chegada {
     padding: 0 10px;
     float: right;
     color: #635995;
+    
 }
 .travel_card .dias {
     position: relative;
-    top:-10px;
+    top:  -10px;
     left: -214%;
 
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 600;
     text-align: center;
-    line-height: 25px;
+    line-height: 20px;
     color: #635995;
 
-
 }
+.travel_card .initial{
+    position: relative;
+    top: -58px;
+    padding: 0 10px;
+    color: #635995;
+    text-align: center;
+    float: left;
+    line-height: 25px;
+}
+.travel_card .end{
+    position: relative;
+    top: -58px;
+    padding: 0 10px;
+    color: #635995;
+    text-align: center;
+    float: right;
+    line-height: 25px;
+}
+
 @media screen and (max-width: 960px){
+    
     .container_travel {
-        margin: 100px 70px;
+        margin: 100px 65px;
         row-gap: 50px;
+       
     }    
 }

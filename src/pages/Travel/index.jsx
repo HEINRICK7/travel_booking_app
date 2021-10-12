@@ -1,6 +1,7 @@
 import React,{ useState, useEffect} from 'react';
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer';
+import moment from 'moment';
 
 import './travel.css';
 
@@ -8,6 +9,8 @@ import './travel.css';
 import api from '../../services/api'
 
 const Travel = () => {
+
+    moment.locale('pt-br');
 
     const [results, setResults] = useState([])
 	console.log(results)
@@ -32,7 +35,7 @@ const Travel = () => {
             <Header className="header" />
             <div className="container_travel">
                 {results.map(result => (
-                <div className="travel">  
+                <>  
                     <div className="travel_card">
                         <p key={result._id}></p>
                         <img className="image"src={result.image_url} alt={result.name} />
@@ -48,13 +51,26 @@ const Travel = () => {
                         </div> 
                         
                         <div className="dias">
-                            <h2>0{result.quant_day}<br/>dia(s)</h2>
-                           
+                            <p>0{result.quant_day}<br/>dia(s)</p>
+
+                        </div>
+                        <div>
+                            <div className="initial">
+                                <h1>{moment(result.date_initial).format('DD')}</h1>
+                                <h3>{moment(result.date_initial).format('MMM')} , {moment(result.date_initial).format('YYYY')}</h3>
+                                
+                            </div>
+                            
+                            <div className="end">
+                                <h1>{moment(result.date_end).format('DD')}</h1>
+                                <h3>{moment(result.date_end).format('MMM')} , {moment(result.date_end).format('YYYY')}</h3>
+                            </div>
+                
                         </div>
                         
                     </div>
 					
-                </div>
+                </>
             ))}
             </div>
             
