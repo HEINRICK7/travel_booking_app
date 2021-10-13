@@ -37,7 +37,9 @@ const TravelDetails = () => {
 
     return (
         <>
+            <Header />
             <h1>{result.name}</h1>
+            <Footer />
         </>
     );
 }
