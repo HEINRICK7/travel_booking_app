@@ -38,16 +38,12 @@
 
 }
 .section_left button {
-    width: 420px;
+    width: 470px;
     height: 85px;
    
     font-style: normal;
     font-weight: 500;
-    font-size: 48px;
-    line-height: 132.4%;
-    /* identical to box height, or 64px */
-
-    letter-spacing: 0.025em;
+    font-size: 28px;
 
     color: #FFFFFF;
     border: 0;
@@ -86,6 +82,13 @@
     border: 5px solid #44e4f0;
     z-index: -2;
 }
+.button_home .icon_home{
+    position: relative;
+    top: 8px;
+    left: 460px;
+    color: #ffffff;
+    font-size: 30px;
+}
 @media screen and (max-width: 960px){
     .container_home {
         margin: 5px;
@@ -111,10 +114,10 @@
     
     }
     .section_left button {
-        width: 70%;
+        width: 90%;
         font-style: normal;
         font-weight: 500;
-        font-size: 25px;
+        font-size: 20px;
         line-height: 132.4%;
         /* identical to box height, or 64px */
     
@@ -162,5 +165,12 @@
         height: 300px;
         border-radius: 50%;
         
+    }
+    .button_home .icon_home{
+        position: relative;
+        top: 6px;
+        left: 350px;
+        color: #FFFFFF;
+        font-size: 20px;
     }
 }

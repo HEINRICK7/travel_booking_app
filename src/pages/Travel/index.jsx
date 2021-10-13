@@ -15,13 +15,10 @@ const Travel = () => {
     moment.locale('pt-br');
 
     const [results, setResults] = useState([])
-	console.log(results)
   
 	useEffect(()=> {
 
-		api.get('travel_all', {
-			
-		})
+		api.get('travel_all')
 		.then(response => {
 			setResults(response.data.travelers)
 			
@@ -37,9 +34,9 @@ const Travel = () => {
             <div className="container_travel">
                 {results.map(result => (
                 <>  
-                    <Link className="travel_details" to={`./travel_details/${result._id}`} >
+                    <Link style={{textDecoration:'none'}} to={`./travel_details/${result._id}`} >
                         <div className="travel_card">
-                        <p key={result._id}></p>
+                        <p key={result._id}/>
                         <img className="image"src={result.image_url} alt={result.name} />
                         <h5 className="price">R${result.price}</h5>
                         <div>
@@ -70,7 +67,7 @@ const Travel = () => {
                 
                         </div>
                         
-                    </div>
+                        </div>
                     </Link>
                     
 					
