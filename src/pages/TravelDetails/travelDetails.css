@@ -77,7 +77,10 @@
     
     outline: none;
 }
-.form_button {
+.form_button{
+    margin: 0 25%;
+}
+.form_button button{
     width: 336px;
     height: 63px;
     left: 909px;
@@ -93,6 +96,24 @@
     line-height: 47px;
 
     color: #FFFFFF;
+
+    cursor: pointer;
+}
+.form_button .icon_button {
+    position: relative;
+    top:6px;
+    left:50px;
+    font-size: 35px;
+
+    color: #FFFFFF;
+    
+}
+.section_details_left .icon_back {
+   
+    position: relative;
+    font-size: 25px;
+    top: -40px;
+    left: -210px
 }
 @media screen and (max-width: 960px){
     
@@ -101,7 +122,7 @@
     }
     .section_details_left {
         padding: 50px 10px;
-        background: #F6F6F6;
+    
     }
     .section_details_left img {
         width: 100%;
@@ -109,33 +130,54 @@
     
     }
     .section_details_left h1 {
-        margin: auto 15%;
-        font-size: 28px;
+        margin: auto 28%;
+        font-size: 30px;
         font-weight: 500;
     }
     .section_details_left h2 {
         float: left;
-        margin: auto 25%;
+        margin: auto 30%;
         font-size: 20px;
         font-weight: 300;
     }
     .section_details_left h3 {
+        margin-top: 20px;
         width: 100%;
         font-size: 18px;
         font-weight: 300;
+        color:#858080;
     }
     .hr {
         width: 100%;
     }
     .section_details_left h6 {
-        width: 80%;
+        width: 100%;
         color:#4487f3;
         text-align: center;
         font-size: 20px;
     }
 
     .section_details_rigth{
-        margin: 10px;
+        margin: 0 19px;
         width: 90%;
+    }
+    .section_details_rigth .form_button {
+        margin: 10px 19px;
+    }
+    .form_button .icon_button {
+        position: relative;
+        top:52px;
+        left:15px;
+        font-size: 35px;
+       
+    }
+
+    .section_details_left .icon_back {
+        position:relative;
+        float:left;
+        font-size: 25px;
+        
+        top: 20px;
+        left: 20px;
     }
 }

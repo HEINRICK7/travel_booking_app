@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
+import { FaWhatsapp, FaArrowLeft } from 'react-icons/fa';
 import api from '../../services/api';
 import './travelDetails.css';
 
@@ -40,7 +41,13 @@ const TravelDetails = () => {
             <div className="travel_details">
                 <Header />
                 <div className="container_details">
+                    
                     <div className="section_details_left">
+                        
+                        <Link className="icon_back" to={"/travel"}>
+                            <FaArrowLeft />
+                        </Link>
+                   
                         <h1>{result.name}</h1>
                         <h2>R${result.price}/pessoa</h2>
                         <img src={result.image_url} alt={result.name}/>
@@ -87,7 +94,11 @@ const TravelDetails = () => {
                             type="text" 
                             placeholder="Digite seu Bairro"
                             />
-                            <button className="form_button">Solicitar Viagem</button>
+                            <div className="form_button">
+                                < FaWhatsapp className="icon_button"/>
+                                <button >Solicitar Viagem</button>
+                            </div>
+                            
                         </div>
 
 

@@ -115,8 +115,10 @@
 @media screen and (max-width: 960px){
     
     .container_travel {
-        margin: 100px 65px;
+        height: 110vh;
+        margin: 90px 65px;
         row-gap: 50px;
        
     }    
+
 }
