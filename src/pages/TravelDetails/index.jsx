@@ -64,14 +64,10 @@ const TravelDetails = () => {
             travel_id: _id
         }
         const key = 'updatable'
-        console.log(data)
-        if(!data === ''){
-
-            message.info({ content: 'Preencha todos os campos.', key, duration: 3.5 });
-        }else {
+        console.log('oi',data)
+         try {
+        if(data !== '')
             
-            try {
-
             await api.post('/travel_register_user', data)
                
                 message.loading({ content: 'Loading...', key });
@@ -88,11 +84,11 @@ const TravelDetails = () => {
                 setRua('')
                 setEmail('')
                 
-            }catch{
 
-                message.warning({ content:'Erro, por favor tente novamente...', duration: 3 });
-            }
-        }    
+        }catch{
+
+            message.info({ content:'Usuario ja cadastrado no nosso Banco de dados...', duration: 3 });
+            }    
     }
 
     const MaskCpf = (e) => {
@@ -109,6 +105,25 @@ const TravelDetails = () => {
         setTelefone(
             telefoneMask(e.target.value)
         )
+    }
+    let cpfMsg = cpf;
+    let nomeMsg = nome;
+    let dataNascMsg = data_nasc;
+    let telefoneMsg= "8694209350";
+    let cidadeMsg = cidade;
+    let bairroMsg = bairro;
+    let ruaMsg = rua;
+    let emailMsg = email;
+
+    const enviarMensagem = () =>{
+       
+      //Verificar se tem DDI e adicionar se não tiver
+      if(telefoneMsg.length < 13){
+          telefoneMsg = "55" + telefoneMsg;
+      }
+
+      window.open("https://api.whatsapp.com/send?phone=" + telefoneMsg + "&text=" + telefoneMsg,cpfMsg,nomeMsg,dataNascMsg,cidadeMsg,bairroMsg,ruaMsg,emailMsg, "_blank");
+        //Obs.. use "_system", no lugar de blank, caso você esteja usando Phonegap / Cordova / Ionic ou qualquer um baseado em webview;
     }
     return (
         <>
@@ -213,7 +228,7 @@ const TravelDetails = () => {
                             
                             <div className="form_button">
                                 < FaWhatsapp className="icon_button"/>
-                                <button type="submit" >Solicitar Viagem</button>
+                                <button onClick={()=> enviarMensagem()} type="submit" >Solicitar Viagem</button>
                             </div>
                            
                         </div>
