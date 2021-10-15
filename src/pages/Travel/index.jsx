@@ -38,11 +38,15 @@ const Travel = () => {
             <div className="container_travel">
                 {
                  loading ? (
-                    <PuffLoader
-                    color={'#F5A623'} 
-                    loading={loading} 
-                    size={15}
-                    />
+                     <div className="spinner">
+                         <PuffLoader
+                            color={'#4A90E2'} 
+                            loading={loading} 
+                            size={125}
+                    
+                            />
+                     </div>
+                    
                 ):(
                     <>
                         {results.map(result => (  
