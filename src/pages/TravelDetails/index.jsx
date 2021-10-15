@@ -109,7 +109,7 @@ const TravelDetails = () => {
     let cpfMsg = cpf;
     let nomeMsg = nome;
     let dataNascMsg = data_nasc;
-    let telefoneMsg= "8694209350";
+    let telefoneMsg= "558694209350";
     let cidadeMsg = cidade;
     let bairroMsg = bairro;
     let ruaMsg = rua;
@@ -117,13 +117,29 @@ const TravelDetails = () => {
 
     const enviarMensagem = () =>{
        
-      //Verificar se tem DDI e adicionar se não tiver
-      if(telefoneMsg.length < 13){
-          telefoneMsg = "55" + telefoneMsg;
-      }
+      const msg = `
+      /-------------------------------------\n/;
+      \n \n cpf: ${cpfMsg} \n \n
+      /-------------------------------------\n/;
+      \n \n nome: ${nomeMsg} \n \n
+      /-------------------------------------\n/;
+      \n \n data_nasc: ${dataNascMsg} \n \n
+      /-------------------------------------\n/;
+      \n \n telefone: ${telefoneMsg} \n \n
+      /-------------------------------------\n/;
+      \n \n cidade: ${cidadeMsg} \n \n
+      /-------------------------------------\n/;
+      \n \n Bairro: ${bairroMsg} \n \n
+      /-------------------------------------\n/;
+      \n \n rua: ${ruaMsg} \n \n
+      /-------------------------------------\n/;
+      \n \n email: ${emailMsg} \n \n
+      /-------------------------------------\n/;
 
-      window.open("https://api.whatsapp.com/send?phone=" + telefoneMsg + "&text=" + telefoneMsg,cpfMsg,nomeMsg,dataNascMsg,cidadeMsg,bairroMsg,ruaMsg,emailMsg, "_blank");
-        //Obs.. use "_system", no lugar de blank, caso você esteja usando Phonegap / Cordova / Ionic ou qualquer um baseado em webview;
+      `
+
+      window.open("https://api.whatsapp.com/send?phone=" + telefoneMsg + "&text=" + msg, "_blank");
+        
     }
     return (
         <>
