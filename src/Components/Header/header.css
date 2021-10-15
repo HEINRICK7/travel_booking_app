@@ -48,13 +48,15 @@
     border: 0;
 }
 .signin {
-  
+    padding: 0 20px;
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
     line-height: 31px;
 
-    color: #6447F9;
+    background: #6447F9;
+    color: #FFFFFF;
+    cursor: pointer;
 }
 .signup {
     background: #6447F9;

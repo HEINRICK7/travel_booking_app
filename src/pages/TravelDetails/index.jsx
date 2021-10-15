@@ -74,7 +74,7 @@ const TravelDetails = () => {
                 setTimeout(() => {
                     message.success({ content: 'Usuário cadastrado com sucesso.', key, duration: 3 });
                 }, 1000);
-            
+                enviarMensagem()
                 setCpf('')
                 setNome('')
                 setData_Nasc('')
@@ -244,7 +244,7 @@ const TravelDetails = () => {
                             
                             <div className="form_button">
                                 < FaWhatsapp className="icon_button"/>
-                                <button onClick={()=> enviarMensagem()} type="submit" >Solicitar Viagem</button>
+                                <button type="submit" >Solicitar Viagem</button>
                             </div>
                            
                         </div>

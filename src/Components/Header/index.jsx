@@ -51,10 +51,10 @@ const Header = () => {
                             Sobre
                         </li>
                         <li className="signin_signup">
-                            <button className="signup">Sign Up</button>
-                        </li>
-                        <li className="signin_signup">
-                            <button className="signin">Login</button>
+                            <Link to="/signin">
+                                <button className="signin">Admin</button>
+                            </Link>
+                            
                         </li>
 
                     </ul>
