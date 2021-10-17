@@ -19,11 +19,7 @@ const TravelDetails = () => {
     
     const { Step } = Steps;
 
-    const [result, setResult] = useState({
-        name: '',
-        image_url: '',
-        description:'',
-    })
+    const [results, setResults] = useState([]);
     const [cpf, setCpf] = useState('')
     const [nome, setNome] = useState('')
     const [data_nasc, setData_Nasc] = useState('')
@@ -36,19 +32,22 @@ const TravelDetails = () => {
     
     const params = useParams();
     let _id = params.id;
+    
     useEffect(() => {
-
+        const handleResultId = async (_id) => {
+            api.get(`travel/${_id}`)
+            .then(response => {
+                setResults([response.data.travel])
+            })
+        }
         if( _id !== undefined){
  
-             handleResultId(_id)
-        } 
+            handleResultId(_id)
+       } 
        
      },[_id]);
 
-    const handleResultId = async (_id) => {
-        const response = await api.get(`travel/${_id}`)
-        setResult(response.data.travel)
-    }
+   
     const handleRegisterTravel = async (e) => {
         e.preventDefault()
 
@@ -114,7 +113,8 @@ const TravelDetails = () => {
     let bairroMsg = bairro;
     let ruaMsg = rua;
     let emailMsg = email;
-
+    console.log(results.map(res => res.itinerary[0].exit_location.title));
+    
     const enviarMensagem = () =>{
        
       const msg = `
@@ -148,29 +148,44 @@ const TravelDetails = () => {
                 <div className="container_details">
                     
                     <div className="section_details_left">
+                       
+                        {results.map(result => (
+                        <>
+                            <Link className="icon_back" to={"/travel"}>
+                                <FaArrowLeft />
+                            </Link>
+                    
+                            <h1>{result.name}</h1>
+                            <h2>{result.price}/pessoa</h2>
+                            <img src={result.image_url} alt={result.name}/>
+                            <h3>{result.description}</h3>
+                            <hr className="hr" style={{border:"2px solid #635995", marginTop:50, marginBottom: 50}}/>
+                            <h6>Prepare-se para sua próxima viagem. Encontre aqui tudo o que você precisa saber para viajar sem contratempos.</h6>
+                            <div className="travel_itinerary">
+                                <h1>Itinerário</h1>
+                                {results.map(res =>(
 
-                        <Link className="icon_back" to={"/travel"}>
-                            <FaArrowLeft />
-                        </Link>
-                   
-                        <h1>{result.name}</h1>
-                        <h2>R${result.price}/pessoa</h2>
-                        <img src={result.image_url} alt={result.name}/>
-                        <h3>{result.description}</h3>
-                        <hr className="hr" style={{border:"2px solid #635995", marginTop:50, marginBottom: 50}}/>
-                        <h6>Prepare-se para sua próxima viagem. Encontre aqui tudo o que você precisa saber para viajar sem contratempos.</h6>
-                        <div className="travel_itinerary">
-                            <h1>Itinerário</h1>
-                            <Steps direction="vertical" current={6}>
-                                <Step title={"Saida de Piripiri"} description="proximo a Igreja Matriz | 03:00hrs" />
-                                <Step title="Primeira Parada" description="Vila de Jijoca | 07:00hrs" />
-                                <Step title="Segunda Parada" description="Pedra Furada | 09:00hrs" />
-                                <Step title="Horario de Almoco" description="Por Conta do Passageiro | 12:00hrs" />
-                                <Step title="Visita a Arvore Caida" description="Parada Fotos e Contemplar a Natureza : 16:00hrs" />
-                                <Step title="Saida de Jericoacoara" description="Volta Para Casa | 18:00hrs" />
-                            </Steps>
-                        </div>  
-                    </div>
+                                <>
+                                   
+                                <Steps direction="vertical" current={6}>
+                                    
+                                    <Step title={res.itinerary[0].exit_location.title} description={res.itinerary[0].exit_location.description} subTitle={res.itinerary[0].exit_location.departure_time}/>
+                                    <Step title={res.itinerary[0].first_stop.title} description={res.itinerary[0].first_stop.description} subTitle={res.itinerary[0].first_stop.departure_time}/>
+                                    <Step title={res.itinerary[0].second_stop.title} description={res.itinerary[0].second_stop.description} subTitle={res.itinerary[0].second_stop.departure_time}/>
+                                    <Step title={res.itinerary[0].third_stop.title} description={res.itinerary[0].third_stop.description} subTitle={res.itinerary[0].third_stop.departure_time}/>
+                                    <Step title={res.itinerary[0].arrival.title} description={res.itinerary[0].arrival.description} subTitle={res.itinerary[0].arrival.departure_time} />
+
+                            
+                                </Steps>
+
+                                </>
+                                ))}
+                                
+                            </div>  
+                        </> 
+                        ))} 
+                      
+                    </div> 
                     <form onSubmit={handleRegisterTravel}>
                     <div className="section_details_rigth">
                         <h1>Suas informações para viagem</h1>

@@ -24,6 +24,7 @@
 }
 
 .section_details_left h1 {
+    
     float: left;
     font-size: 38px;
     font-weight: 500;
@@ -130,7 +131,7 @@
     
     }
     .section_details_left h1 {
-        margin: auto 28%;
+        margin: auto 13%;
         font-size: 30px;
         font-weight: 500;
     }
