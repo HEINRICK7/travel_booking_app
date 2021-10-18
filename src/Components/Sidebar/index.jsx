@@ -1,9 +1,14 @@
 import React,{ useState} from 'react';
+import { Link } from 'react-router-dom';
+import './sidebar.css';
+import Logo from '../../assets/logo.svg';
 
-import './sidebar.css'
-import Logo from '../../assets/logo.svg'
-
-import { AiOutlineMenuFold,AiOutlineMenuUnfold, AiOutlineSearch } from 'react-icons/ai'
+import { AiOutlineMenuFold, 
+    AiOutlineMenuUnfold,
+     AiOutlineSearch,
+     AiOutlineIdcard,
+     AiOutlineDashboard 
+    } from 'react-icons/ai'
 
 const Sidebar = () => {
     const [ inactive, setInactive] = useState(false)
@@ -25,8 +30,47 @@ const Sidebar = () => {
             </div>
            
           </div>
-          <div className="divider">
-                
+          <div className="divider"></div>
+          <div className="main_menu">
+              <ul>
+                  <li>
+                      <Link className="menu_item">
+                          <div className="menu_icon">
+                               <AiOutlineDashboard  />
+                          </div>
+                         
+                         <span>Dashboard</span>
+                      </Link>
+                  </li>
+                  <li>
+                      <Link className="menu_item">
+                          <div className="menu_icon">
+                               <AiOutlineIdcard  />
+                          </div>
+                         
+                         <span>Content</span>
+                      </Link>
+                  </li>
+                  <li>
+                      <Link className="menu_item">
+                          <div className="menu_icon">
+                               <AiOutlineDashboard  />
+                          </div>
+                         
+                         <span>Dashboard</span>
+                      </Link>
+                  </li>
+                  <li>
+                      <Link className="menu_item">
+                          <div className="menu_icon">
+                               <AiOutlineDashboard  />
+                          </div>
+                         
+                         <span>Dashboard</span>
+                      </Link>
+                  </li>
+                  
+              </ul>
           </div>
       </div>
   );

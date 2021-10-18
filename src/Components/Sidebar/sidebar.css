@@ -35,7 +35,8 @@
     position: absolute;
     top: 30%;
     right: 0%;
-    transform: translateY(-50%)
+    transform: translateY(-50%);
+    cursor: pointer;
 }
 .sidebar_menu.inactive .top_section .toggle_menu_btn {
     top: 30px;
@@ -73,4 +74,78 @@
     height: 1px;
     border-radius: 1px;
     background:#333;
+}
+
+.sidebar_menu .main_menu {
+    margin: 15px 0;
+}
+.sidebar_menu .main_menu .menu_item {
+    display: block;
+    color: #FFF;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    line-height:48px;
+}
+.sidebar_menu .main_menu .menu_item .menu_icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+    
+
+}
+.sidebar_menu.inactive .main_menu .menu_item .menu_icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    text-align: center;
+
+}
+.sidebar_menu .main_menu .menu_item span{
+    position: absolute;
+    display: inline-block;
+    line-height: 45px;
+    opacity: 1;
+    transition: opacity .5s ease-in;
+}
+.sidebar_menu.inactive .main_menu .menu_item span {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 960px){
+    .sidebar_menu.inactive {
+        width: 80px;
+    }
+    .sidebar_menu .main_menu ul li {
+        padding: 20px;
+        margin: 10px 10px;
+    }
+    .sidebar_menu .main_menu  ul li .menu_item  .menu_icon {
+        
+        position: relative;
+        margin:0 40px ;
+        font-size: 28px;
+        text-align: center;
+       
+    }
+    .sidebar_menu.inactive .main_menu  ul li .menu_item  .menu_icon {
+        
+        position: relative;
+        margin:0 10px ;
+        font-size: 30px;
+        text-align: center;
+       
+    }
+    .sidebar_menu .main_menu .menu_item span{
+        line-height: 85px;
+        margin-left: -55px
+       
+    }
+
 }
