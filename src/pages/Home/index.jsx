@@ -4,7 +4,7 @@ import './home.css'
 import Header from '../../Components/Header';
 import Footer from '../../Components/Footer'
 
-import {FaArrowRight} from 'react-icons/fa'
+
 import Image1 from '../../assets/jeri.png'
 import Image2 from '../../assets/sitio.png'
 import Image3 from '../../assets/fa.png'
@@ -17,7 +17,6 @@ const Home = () => {
             <div className="section_left">
                 <p>Encontre as Melhores viagens e passeios para você e sua família...</p>
                 <Link className="button_home" to="travel">
-                    <FaArrowRight className="icon_home"/>
                     <button>Veja todos os nossos Pacotes</button>
                 </Link>
                 

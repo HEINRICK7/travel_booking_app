@@ -3,11 +3,13 @@
     height: 100vh;
     margin: 30px 70px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: 1fr 1fr 1fr ;
     column-gap: 30px;
+
 }
 .travel_card {
     display: grid;
+    margin: 0 70px;
     width: 282px;
     height: 450px;
     background: #FFFFFF;
@@ -123,11 +125,19 @@
 @media screen and (max-width: 960px){
     
     .container_travel {
-        height: 110vh;
-        margin: 90px 65px;
-        row-gap: 50px;
+        display: block;
+        height: auto;
+        margin: 90px 0px;
+        align-items: center;
+        
+        
        
     }    
+    .travel_card {
+        display: grid;
+        margin: 50px 65px ;
+    } 
+   
     .spinner {
         
         margin: 20px;

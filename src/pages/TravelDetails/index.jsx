@@ -113,7 +113,7 @@ const TravelDetails = () => {
     let bairroMsg = bairro;
     let ruaMsg = rua;
     let emailMsg = email;
-    console.log(results.map(res => res.itinerary[0].exit_location.title));
+ 
     
     const enviarMensagem = () =>{
        

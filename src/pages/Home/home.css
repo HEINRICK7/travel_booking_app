@@ -104,16 +104,17 @@
         
     }
     .section_left p{
-        margin: 0px 5px 30px 5px;
+        margin: -70px 8px 30px 8px;
         font-style: normal;
         font-weight: 500;
-        font-size: 45px;
+        font-size: 35px;
         line-height: 45px;
         letter-spacing: 0.025em;
         color: #635995;
     
     }
     .section_left button {
+        background: #635995;
         width: 90%;
         font-style: normal;
         font-weight: 500;
