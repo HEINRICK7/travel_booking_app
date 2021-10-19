@@ -1,0 +1,109 @@
+.dashboard{
+    display: grid;
+    
+}
+.dashboard_container {
+    display: grid;
+    width: auto;
+    height: 100vh;
+    grid-area: dashboard_container;
+  
+}
+.dashboard_sidebar{
+    grid-area: dashboard_sidebar;
+}
+.main_section{
+   display: grid;
+   max-width: 100%;
+   margin: 10px;
+    
+}
+.dashboard {
+    
+    grid-template-columns: 5% 95%;
+    grid-template-areas:
+            
+            "dashboard_sidebar dashboard_container"
+            ;
+}
+.main_section .cards_values {
+    
+    grid-area: cards;
+}
+.main_section .section_details_approved {
+    grid-area: section_details_approved;
+}
+.main_section .cards_section_right {
+    grid-area: cards_section_right;
+}
+.main_section .cards_values{
+    height: 0;
+}.main_section .cards_values{
+    height: 0;
+}
+.section_details_approved {
+   
+    background: rgba(237, 239, 240, 0.933);
+}
+.main_section .cards_section_right {
+
+    background: rgba(237, 239, 240, 0.933);
+}
+.main_section {
+	grid-template-areas:
+		"cards cards cards "
+		"section_details_approved section_details_approved cards_section_right"
+        "section_details_approved section_details_approved cards_section_right"
+		;
+    column-gap: 30px;
+}
+.main_section .cards_values .cards {
+    display: grid;
+    justify-content: flex-end;
+}
+.main_section .cards_values .cards ul{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.main_section .cards_values .cards .item_card {
+
+    width: 310px;
+    height: 120px;
+    margin:30px 50px;
+    background: #edeeed;
+
+}
+@media screen and (max-width: 960px){
+    
+    .main_section {
+        width:100%;
+        height: 100vh;
+        grid-template-areas:
+            "cards cards "
+            "section_details_approved section_details_approved"
+            "cards_section_right cards_section_right"
+            ;
+        column-gap: 30px;
+    }
+    .main_section .cards_values .cards ul{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    
+    .main_section .cards_values .cards {
+        display: grid;
+        justify-content: center;
+    }
+    .main_section .cards_values{
+        width: auto;
+        height: 400px;
+        margin: 50px 0;
+    }
+    .section_details_approved {
+        
+    }
+    .main_section .cards_section_right {
+
+        
+    }
+}

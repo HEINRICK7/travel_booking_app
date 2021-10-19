@@ -11,7 +11,7 @@ import { AiOutlineMenuFold,
     } from 'react-icons/ai'
 
 const Sidebar = () => {
-    const [ inactive, setInactive] = useState(false)
+    const [ inactive, setInactive] = useState(true)
   return (
       <div className={`sidebar_menu ${inactive ? "inactive" : ""}`} >
           <div className="top_section">
@@ -19,7 +19,7 @@ const Sidebar = () => {
                 <img src={Logo} alt="logo" />
             </div>
             <div onClick={() => {setInactive(!inactive)}} className="toggle_menu_btn">
-                {!inactive ? <AiOutlineMenuFold /> : <AiOutlineMenuUnfold/>}
+                {!inactive ? <AiOutlineMenuFold style={{color:'#FFFFFF'}}/> : <AiOutlineMenuUnfold style={{color:'#0d649a'}}/>}
             </div>
             <div className="search_controller">
                 <button className="search_btn" >
