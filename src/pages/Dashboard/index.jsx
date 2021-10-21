@@ -1,5 +1,6 @@
 import React from 'react';
-import Sidebar from '../../Components/Sidebar/index'
+import Sidebar from '../../Components/Sidebar/index';
+import TravelRegister from '../../Components/Travel_Register/index';
 
 import './dashboard.css';
 
@@ -9,6 +10,9 @@ const Dashboard = () => {
         <div className="dashboard">
             <div className="dashboard_sidebar">
                 < Sidebar />
+            </div>
+            <div className="dashboard_sidebar">
+                < TravelRegister />
             </div> 
             <div className="dashboard_container">
                 <div className="main_section">
