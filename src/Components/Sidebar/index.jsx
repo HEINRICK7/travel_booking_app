@@ -6,12 +6,17 @@ import Logo from '../../assets/logo.svg';
 import { AiOutlineMenuFold, 
     AiOutlineMenuUnfold,
      AiOutlineSearch,
-     AiOutlineIdcard,
+
      AiOutlineDashboard 
     } from 'react-icons/ai'
+import { MdOutlineCardTravel } from 'react-icons/md'   
 
-const Sidebar = () => {
-    const [ inactive, setInactive] = useState(true)
+import {Tooltip } from 'antd';
+
+
+const Sidebar = (props) => {
+    const [ inactive, setInactive] = useState(true);
+    
   return (
       <div className={`sidebar_menu ${inactive ? "inactive" : ""}`} >
           <div className="top_section">
@@ -34,22 +39,28 @@ const Sidebar = () => {
           <div className="main_menu">
               <ul>
                   <li>
-                      <Link className="menu_item">
-                          <div className="menu_icon">
-                               <AiOutlineDashboard  />
-                          </div>
+                      <Link to="dashboard" className="menu_item">
+                          <div className="menu_icon">  
+                            <Tooltip title="Dashboard" > 
                          
-                         <span>Dashboard</span>
+                               <AiOutlineDashboard  /> 
+                            </Tooltip>
+                          </div>
+                        
+                            <span>Dashboard</span>
+                        
                       </Link>
                   </li>
                   <li>
-                      <Link className="menu_item">
-                          <div className="menu_icon">
-                               <AiOutlineIdcard  />
+                      <div className="menu_item">
+                          <div className="menu_icon" onClick={props.showDrawer}>
+                            <Tooltip title="Cadastrar Pacotes" > 
+                               <MdOutlineCardTravel />
+                            </Tooltip>   
                           </div>
                          
-                         <span>Content</span>
-                      </Link>
+                         <span>Cadastrar Pacotes</span>
+                      </div>
                   </li>
                   <li>
                       <Link className="menu_item">

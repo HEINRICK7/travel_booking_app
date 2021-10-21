@@ -141,6 +141,7 @@ const TravelDetails = () => {
       window.open("https://api.whatsapp.com/send?phone=" + telefoneMsg + "&text=" + msg, "_blank");
         
     }
+
     return (
         <>
             <div className="travel_details">
@@ -163,23 +164,18 @@ const TravelDetails = () => {
                             <h6>Prepare-se para sua próxima viagem. Encontre aqui tudo o que você precisa saber para viajar sem contratempos.</h6>
                             <div className="travel_itinerary">
                                 <h1>Itinerário</h1>
-                                {results.map(res =>(
-
+                                {results.map(result=> result.itinerary.map(res => (
+                                
                                 <>
                                    
-                                <Steps direction="vertical" current={6}>
+                                <Steps progressDot direction="vertical" current={res.length}>
                                     
-                                    <Step title={res.itinerary[0].exit_location.title} description={res.itinerary[0].exit_location.description} subTitle={res.itinerary[0].exit_location.departure_time}/>
-                                    <Step title={res.itinerary[0].first_stop.title} description={res.itinerary[0].first_stop.description} subTitle={res.itinerary[0].first_stop.departure_time}/>
-                                    <Step title={res.itinerary[0].second_stop.title} description={res.itinerary[0].second_stop.description} subTitle={res.itinerary[0].second_stop.departure_time}/>
-                                    <Step title={res.itinerary[0].third_stop.title} description={res.itinerary[0].third_stop.description} subTitle={res.itinerary[0].third_stop.departure_time}/>
-                                    <Step title={res.itinerary[0].arrival.title} description={res.itinerary[0].arrival.description} subTitle={res.itinerary[0].arrival.departure_time} />
-
-                            
+                                    <Step title={res.title} description={res.description} subTitle={res.departure_time} />
+                               
                                 </Steps>
 
                                 </>
-                                ))}
+                                )))}
                                 
                             </div>  
                         </> 
