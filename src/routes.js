@@ -7,7 +7,7 @@ import Travel from './pages/Travel/index'
 import TravelDetails from './pages/TravelDetails/index'
 
 import Signin from './pages/SignIn/index'
-import Dashboard from './pages/Dashboard'
+import Dashboard from './pages/Dashboard/index'
 
  
 //import CadServidor from './pages/Cad_Servidor/index'
@@ -41,6 +41,7 @@ const Routes = () => {
             <Route path={`/travel_details/:id`} exact component={TravelDetails} />
             <Route path={"/signin"} exact component={Signin} />
             <PrivateRoute path={"/dashboard"} exact component={Dashboard}/>
+            
         </Switch> 
       
      </BrowserRouter>
