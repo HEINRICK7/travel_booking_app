@@ -1,0 +1,63 @@
+.container_travel_register {
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    background: rgb(255, 255, 255);
+    
+}
+.container_travel_register h1 {
+    color: #1689dc;
+    font-weight: bold;
+}
+.travel_register {
+    width: 90%;
+    height: 100%;
+    margin: 0 0 0 10% ;
+    padding:10px;
+    background: rgb(211, 204, 204);
+}
+.travel_register_form{
+    width: 100%;
+    height: 90vh;
+    
+    background: #ebe5e5;
+    
+}
+.travel_register .travel_register_form h3 {
+    float: left;
+    color: #1689dc;
+    font-weight: bold;
+}
+
+.site-form-in-drawer-wrapper {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    padding: 10px 16px;
+    text-align: right;
+    background: #fff;
+    border-top: 1px solid #e9e9e9;
+  }
+
+  .col_input {
+    width: 100%;
+}
+@media screen and (max-width: 960px){
+
+    .container_form{
+        width:100%;
+    }
+    .container_input{
+        display: grid;
+        grid-template-columns: 1fr;
+
+    }
+    .container_textarea{
+        width: 95%;
+        
+    }
+    .col_input {
+        width: 60vw;
+    }
+}
