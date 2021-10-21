@@ -1,6 +1,5 @@
-import React,{useState} from 'react'
+import React,{useState} from 'react';
 
-import Sidebar from '../Sidebar/index';
 
 import { Drawer, Form, Button, Col, Row, Input, DatePicker, Space, Divider, Upload, message } from 'antd';
 
@@ -45,7 +44,6 @@ const TravelRegister = () => {
     return (
 
         <>
-            <Sidebar showDrawer={showDrawer} />
             <div className="container_travel_register">
           
                 <Drawer
