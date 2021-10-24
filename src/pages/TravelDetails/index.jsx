@@ -158,7 +158,7 @@ const TravelDetails = () => {
                     
                             <h1>{result.name}</h1>
                             <h2>{result.price}/pessoa</h2>
-                            <img src={result.image_url} alt={result.name}/>
+                            <img src={result.file.url} alt={result.name}/>
                             <h3>{result.description}</h3>
                             <hr className="hr" style={{border:"2px solid #635995", marginTop:50, marginBottom: 50}}/>
                             <h6>Prepare-se para sua próxima viagem. Encontre aqui tudo o que você precisa saber para viajar sem contratempos.</h6>
@@ -170,7 +170,7 @@ const TravelDetails = () => {
                                    
                                 <Steps progressDot direction="vertical" current={res.length}>
                                     
-                                    <Step title={res.title} description={res.description} subTitle={res.departure_time} />
+                                    <Step title={res.title} description={res.description_itinerary} subTitle={res.departure_time_itinerary} />
                                
                                 </Steps>
 
