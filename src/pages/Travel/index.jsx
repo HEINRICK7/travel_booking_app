@@ -29,8 +29,9 @@ const Travel = () => {
 		.catch(error => console.log(error))
 
 	},[]);
-        
-
+console.log(results.map(res => {
+   return res.file.url
+}))
     return (
         
         <div className="travel">
@@ -46,14 +47,14 @@ const Travel = () => {
                     
                             />
                      </div>
-                    
+
                 ):(
                     <>
                         {results.map(result => (  
                             <Link style={{textDecoration:'none'}} to={`./travel_details/${result._id}`} >
                                 <div className="travel_card">
                                 <p key={result._id}/>
-                                <img className="image"src={result.image_url} alt={result.name} />
+                                <img className="image"src={result.file.url} alt={result.name} />
                                 <h5 className="price">R${result.price}</h5>
                                 <div>
                                     <h2 className="name">{result.name}</h2>
