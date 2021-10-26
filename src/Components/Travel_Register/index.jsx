@@ -4,7 +4,9 @@ import { message } from 'antd';
 import api from '../../services/api';
 
 import { Drawer, Form, Button, Col, Row, Input, DatePicker, Space, Divider, Upload, message } from 'antd';
+
 import ImgCrop from 'antd-img-crop';
+
 import { PlusOutlined, MinusCircleOutlined, InboxOutlined } from '@ant-design/icons';
 
 import './travel_register.css';
