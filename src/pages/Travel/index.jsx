@@ -8,10 +8,12 @@ import moment from 'moment';
 import PuffLoader from "react-spinners/PuffLoader"
 import './travel.css';
 
-
 import api from '../../services/api'
 
+
+
 const Travel = () => {
+    
 
     moment.locale('pt-br');
 
@@ -29,9 +31,6 @@ const Travel = () => {
 		.catch(error => console.log(error))
 
 	},[]);
-console.log(results.map(res => {
-   return res.file.url
-}))
     return (
         
         <div className="travel">
@@ -81,10 +80,10 @@ console.log(results.map(res => {
                                         <h1>{moment(result.date_end).format('DD')}</h1>
                                         <h3>{moment(result.date_end).format('MMM')} , {moment(result.date_end).format('YYYY')}</h3>
                                     </div>
-                        
+                                   
                                 </div>
-
                                 </div>
+   
                             </Link>
 
                         ))}     
