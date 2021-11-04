@@ -51,20 +51,45 @@ const Dashboard = () => {
       }
     ])
 
-    const onFinish  = async (values) => {
-    
-  
+    const handleRegisterTravel  = async (e) => {
+      e.preventDefault();
+
+      const data = {
+        name_package,
+        city,
+        state,
+        date_initial,
+        date_end,
+        price,
+        quant_min,
+        quant_max,
+        quant_day,
+        description,
+        itinerary: {
+          title: [itinerary].map(itiner => itiner.title),
+          description_itinerary:'',
+          departure_time_itinerary: '',
+        },
+        fileList: {
+          name: fileList.map( list => list.name),
+          size: fileList.map( list => list.size),
+          key: '',
+          url: '',
+        }
+
+      }
       const key = 'updatable'
-        console.log(values)
+        console.log(data)
+        console.log([itinerary].map(itiner => itiner.title))
       
-        if(!values === ''){
+        if(!data === ''){
 
             message.info({ content: 'Preencha todos os campos.', key, duration: 3.5 });
         }else {
             
             try {
 
-            await api.post('/register_travel', values)
+            await api.post('/register_travel', data)
                
                 message.loading({ content: 'Loading...', key });
                 setTimeout(() => {
@@ -78,15 +103,15 @@ const Dashboard = () => {
             }
         }    
     }
-  
+    const [visible, setVisible] = useState(false);
+
     const { Header, Sider, Content } = Layout;
    
     const toggle = () => {
       setCollapsed(!collapsed);
     }
 
-    const [visible, setVisible] = useState(false);
-
+    
     const showDrawer = () => {
         setVisible(true);
     } 
@@ -182,7 +207,8 @@ const Dashboard = () => {
                     </Space>
                 }
                 >
-                <Form className="container_form" onFinish={onFinish} layout="vertical" hideRequiredMark>
+            
+                <Form className="container_form" onSubmit={handleRegisterTravel}  layout="vertical" hideRequiredMark>
                     <Row className="container_input" gutter={16}>
                         <Col span={8}>
                             <Form.Item
@@ -350,7 +376,8 @@ const Dashboard = () => {
                                   rules={[{ required: true, message: 'Missing title' }]}
                                 >
                                   <Input 
-                                  placeholder="Digite um Titulo" 
+                                  placeholder="Digite um Titulo"
+                                  onChange={e => e.target.name} 
 
                                   />
                                 </Form.Item>
@@ -362,6 +389,8 @@ const Dashboard = () => {
                                 >
                                   <Input 
                                   placeholder="Digite uma Descricao"
+                                  value={title}
+                                  onChange={e => setItinerary(e.target.name)} 
 
                                   />
                                 </Form.Item>
@@ -373,6 +402,7 @@ const Dashboard = () => {
                                 >
                                   <Input 
                                   placeholder="Digite uma horario"
+                                  onChange={e => setItinerary(e.target.name)} 
 
                                   />
                                 </Form.Item>
@@ -402,11 +432,12 @@ const Dashboard = () => {
                     </ImgCrop>
                     <Divider />
                     <Space>
-                        <Button type="primary" htmlType="submit" icon={<PlusOutlined />}>
+                        <Button type="primary" onClick={handleRegisterTravel} icon={<PlusOutlined />}>
                             New Travel
                         </Button>
                     </Space>
                 </Form>
+               
         </Drawer>
         
       </Layout>
