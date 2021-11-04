@@ -389,7 +389,6 @@ const Dashboard = () => {
                                 >
                                   <Input 
                                   placeholder="Digite uma Descricao"
-                                  value={title}
                                   onChange={e => setItinerary(e.target.name)} 
 
                                   />
