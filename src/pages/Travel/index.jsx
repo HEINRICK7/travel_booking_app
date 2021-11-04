@@ -26,11 +26,11 @@ const Travel = () => {
 		.then(response => {
             setLoading(false)
 			setResults(response.data.travelers)
-			
 		})
 		.catch(error => console.log(error))
 
 	},[]);
+    console.log(results);
     return (
         
         <div className="travel">
