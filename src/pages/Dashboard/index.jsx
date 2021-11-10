@@ -15,7 +15,6 @@ import Upload from '../../Components/Upload/index';
 import FileList from '../../Components/FileList/index'
 
 import { uniqueId } from 'lodash';
-import { filesize } from 'filesize';
 
 import { Layout, Menu} from 'antd';
 import {
