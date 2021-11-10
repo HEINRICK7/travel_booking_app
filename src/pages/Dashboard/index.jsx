@@ -1,8 +1,8 @@
 import React,{useState} from 'react';
 
-import { Drawer, Form, Button, Col, Row, Input, Space, Divider, Upload, message } from 'antd';
+import { Drawer, Form, Button, Col, Row, Input,Space, Divider, message } from 'antd';
 
-import { PlusOutlined, MinusCircleOutlined} from '@ant-design/icons';
+import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 
 import Logo from '../../assets/logo.svg';
 
@@ -10,7 +10,12 @@ import { MdCardTravel } from 'react-icons/md';
 
 import api from '../../services/api';
 
-import ImgCrop from 'antd-img-crop';
+import Upload from '../../Components/Upload/index';
+
+import FileList from '../../Components/FileList/index'
+
+import { uniqueId } from 'lodash';
+import { filesize } from 'filesize';
 
 import { Layout, Menu} from 'antd';
 import {
@@ -22,6 +27,7 @@ import {
 
 
 import './dashboard.css';
+
 
 
 const Dashboard = () => {
@@ -37,71 +43,107 @@ const Dashboard = () => {
     const [quant_max, setQuant_max] = useState('')
     const [quant_day, setQuant_day] = useState('')
     const [description, setDescription] = useState('')
-    const [fileList, setFileList] = useState([{
-      name: '',
-      size: '',
-      key: '',
-      url: ''
-    }])
-    const [itinerary, setItinerary] = useState([
-      {
+    const [uploadedFiles, setUploadedFiles] = useState([])
+    const [itinerary, setItinerary] = useState([])
+    
+    const addInputButton = () => {
+      setItinerary([...itinerary, {
         title: '',
         description_itinerary: '',
         departure_time_itinerary: ''
-      }
-    ])
+      }])
+    }
+    const removeInputButton = (position) => {
+      setItinerary([...itinerary.filter((_, index) => index !== position)])
+    }
 
+    const handleChangeItinerary = (e, index) => {
+      const {name, value} = e.target;
+      const list = [...itinerary];
+      list[index][name] = value;
+      setItinerary(list)
+    }
+    const handleUpload = (files) => {
+      const uploadedFile= files.map(file => ({
+        file,
+        id: uniqueId(),
+        name: file.name,
+        readableSize: file.size,
+        preview: URL.createObjectURL(file),
+        progress: 0,
+        uploaded: false,
+        error: false,
+        url: null,
+      }))
+
+      setUploadedFiles(
+        uploadedFiles.concat(uploadedFile)
+      );
+      uploadedFiles.forEach(processUpload);
+    };
+
+      const updateFile = (id, data) => {
+        setUploadedFiles(uploadedFiles.map(uploadedFile => {
+          return id === uploadedFile.id ? { ...uploadedFile, ...data} : uploadedFile;
+        })
+      )
+    };
+
+    const processUpload = (uploadedFile) => {
+      const data = new FormData();
+
+      data.append('file', uploadedFile.file, uploadedFile.name);
+
+      api.post('travel_register', data, {
+        onUploadProgress: e => {
+          const progress = parseInt(Math.round((e.loaded * 100)/ e.total));
+          updateFile(uploadedFile.id, {
+            progress,
+          });
+        }
+      })
+      .then(response => {
+          updateFile( uploadedFile.id, {
+            uploaded: true,
+            id: response.data._id,
+            url: response.data.url
+          });
+      })
+      .catch(() => {
+        updateFile( uploadedFile.id, {
+          error: true
+          
+        });
+      })
+    }
+    
     const handleRegisterTravel  = async (e) => {
       e.preventDefault();
+       
+    const data = {
+      name_package,
+      city,
+      state,
+      date_initial,
+      date_end,
+      price,
+      quant_min,
+      quant_max,
+      quant_day,
+      description,
+      itinerary
+    
+    }
 
-      const data = {
-        name_package,
-        city,
-        state,
-        date_initial,
-        date_end,
-        price,
-        quant_min,
-        quant_max,
-        quant_day,
-        description,
-        itinerary: {
-          title: [itinerary].map(itiner => itiner.title),
-          description_itinerary:'',
-          departure_time_itinerary: '',
-        },
-        fileList: {
-          name: fileList.map( list => list.name),
-          size: fileList.map( list => list.size),
-          key: '',
-          url: '',
-        }
-
-      }
+    console.log(data);
       const key = 'updatable'
-        console.log(data)
-        console.log([itinerary].map(itiner => itiner.title))
-      
-        if(!data === ''){
-
-            message.info({ content: 'Preencha todos os campos.', key, duration: 3.5 });
-        }else {
-            
-            try {
-
-            await api.post('/register_travel', data)
+         
+            await api.post('travel_register', data)
                
                 message.loading({ content: 'Loading...', key });
                 setTimeout(() => {
                     message.success({ content: 'Usuário cadastrado com sucesso.', key, duration: 3 });
                 }, 1000);
-        
-                setItinerary(...itinerary, '');
-            }catch{
-
-                message.warning({ content:'Erro, por favor tente novamente...', duration: 3 });
-            }
-        }    
     }
     const [visible, setVisible] = useState(false);
 
@@ -111,7 +153,6 @@ const Dashboard = () => {
       setCollapsed(!collapsed);
     }
 
-    
     const showDrawer = () => {
         setVisible(true);
     } 
@@ -119,26 +160,7 @@ const Dashboard = () => {
         setVisible(false);
         
     };
-    
-
-    const onChange = ({ fileList: newFileList }) => {
-          setFileList(newFileList);
-    };    
-    const onPreview = async file => {
-      let src = file.url;
-      if (!src) {
-        src = await new Promise(resolve => {
-          const reader = new FileReader();
-          reader.readAsDataURL(file.originFileObj);
-          reader.onload = () => resolve(reader.result);
-        });
-      }
-      const image = new Image();
-      image.src = src;
-      const imgWindow = window.open(src);
-      imgWindow.document.write(image.outerHTML);
-    };
-    
+   
     return (
         <>
         <Layout>
@@ -195,7 +217,7 @@ const Dashboard = () => {
         </Layout>
       
         <Drawer
-                title="Create a new account"
+          title="Create a new account"
                 width={'85%'}
                 onClose={onClose}
                 visible={visible}
@@ -205,11 +227,11 @@ const Dashboard = () => {
                         <Button onClick={onClose}>Cancel</Button>
                         <Button type="primary" onClick={onClose}>Submit</Button>
                     </Space>
-                }
-                >
-            
-                <Form className="container_form" onSubmit={handleRegisterTravel}  layout="vertical" hideRequiredMark>
-                    <Row className="container_input" gutter={16}>
+          }
+          >
+      
+          <Form className="container_form" onSubmit={handleRegisterTravel} layout="vertical" hideRequiredMark>
+              <Row className="container_input" gutter={16}>
                         <Col span={8}>
                             <Form.Item
                             name="name_package"
@@ -252,8 +274,8 @@ const Dashboard = () => {
                             />
                             </Form.Item>
                         </Col>
-                    </Row>
-                    <Row className="container_input" gutter={16}>
+              </Row>
+              <Row className="container_input" gutter={16}>
                         <Col span={8}>
                             <Form.Item
                             name="price"
@@ -296,8 +318,8 @@ const Dashboard = () => {
                             />
                             </Form.Item>
                         </Col>
-                    </Row>
-                    <Row className="container_input" gutter={16}>
+              </Row>
+              <Row className="container_input" gutter={16}>
                     <Col span={8}>
                         <Form.Item
                         name="quant_day"
@@ -340,8 +362,8 @@ const Dashboard = () => {
                          />
                         </Form.Item>
                     </Col>
-                    </Row>
-                    <Row className="container_textarea" gutter={16}>
+              </Row>
+              <Row className="container_textarea" gutter={16}>
                     <Col  span={24}>
                         <Form.Item
                         name="description"
@@ -362,81 +384,53 @@ const Dashboard = () => {
                         />
                         </Form.Item>
                     </Col>
-                    </Row>
-                    <Divider orientation="left">Itinerario</Divider>
-                    <Form.List name="itinerary">
-                        {(fields, { add, remove }) => (
-                          <>
-                            {fields.map(({ key , name, fieldKey, ...restField }) => (
-                              <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
-                                <Form.Item
-                                  {...restField}
-                                  name={[name, 'title']}
-                                  fieldKey={[fieldKey, 'title']}
-                                  rules={[{ required: true, message: 'Missing title' }]}
-                                >
-                                  <Input 
-                                  placeholder="Digite um Titulo"
-                                  onChange={e => e.target.name} 
+              </Row>
+                    {itinerary.map((item, index)=> (
 
-                                  />
-                                </Form.Item>
-                                <Form.Item
-                                  {...restField}
-                                  name={[name, 'description_itinerary']}
-                                  fieldKey={[fieldKey, 'description_itinerary']}
-                                  rules={[{ required: true, message: 'Missing last description' }]}
-                                >
-                                  <Input 
-                                  placeholder="Digite uma Descricao"
-                                  onChange={e => setItinerary(e.target.name)} 
+                      <Space key={index} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                
+                        <Input 
+                        name="title"
+                        value={item.title}
+                        placeholder="Titulo"
+                        onChange={ e => handleChangeItinerary(e, index)}
+                        
+                         />
 
-                                  />
-                                </Form.Item>
-                                <Form.Item
-                                  {...restField}
-                                  name={[name, 'departure_time']}
-                                  fieldKey={[fieldKey, 'departure_time']}
-                                  rules={[{ required: true, message: 'Missing last departure_time' }]}
-                                >
-                                  <Input 
-                                  placeholder="Digite uma horario"
-                                  onChange={e => setItinerary(e.target.name)} 
+                        <Input 
+                        name="description_itinerary"
+                        value={item.description_itinerary}
+                        placeholder="Descricao" 
+                        onChange={ e => handleChangeItinerary(e, index)}
+                        
+                        />
 
-                                  />
-                                </Form.Item>
-                                <MinusCircleOutlined onClick={() => remove(name)} />
-                            
-                              </Space>
-                            ))}
-                            <Form.Item>
+                        <Input 
+                        name="departure_time_itinerary"
+                        value={item.departure_time_itinerary}
+                        placeholder="horario"
+                        onChange={ e => handleChangeItinerary(e, index)}
+                        
+                        />
 
-                              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                                Adicionar Campo
-                              </Button>
-                            </Form.Item>
-                          </>
-                        )}
-                    </Form.List>
-                    <Divider orientation="left">Imagens</Divider>
-                    <ImgCrop rotate>
-                      <Upload
-                        listType="picture-card"
-                        fileList={fileList}
-                        onChange={onChange}
-                        onPreview={onPreview}
-                        >
-                        {fileList.length < 5 && '+ Upload'}
-                      </Upload>
-                    </ImgCrop>
-                    <Divider />
-                    <Space>
-                        <Button type="primary" onClick={handleRegisterTravel} icon={<PlusOutlined />}>
-                            New Travel
-                        </Button>
-                    </Space>
-                </Form>
-               
+                        <MinusCircleOutlined onClick={() => {removeInputButton(index)}} />
+                      </Space>
+                     ))} 
+                      <Button type="secundary" onClick={addInputButton} icon={<PlusOutlined />} />
+             
+              <Divider orientation="left">Imagens</Divider>
+                < Upload onUpload={handleUpload}/>
+                { !!uploadedFiles.length && (
+                  < FileList files={uploadedFiles}/>  
+                )}
+              <Divider />
+              <Space>
+                  <Button type="primary" onClick={handleRegisterTravel} >
+                      New Travel
+                  </Button>
+              </Space>
+          </Form>
+         
         </Drawer>
         
       </Layout>

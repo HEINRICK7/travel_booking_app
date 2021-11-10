@@ -56,7 +56,7 @@ const Travel = () => {
                                 <img className="image"src={result.file.url} alt={result.name} />
                                 <h5 className="price">R${result.price}</h5>
                                 <div>
-                                    <h2 className="name">{result.name}</h2>
+                                    <h2 className="name">{result.name_package}</h2>
                                     <p className="city">{result.city}-{((result.state).substr(-20, 2)).toUpperCase()}</p>
                                 </div>
                                 <div className="saida_chegada">

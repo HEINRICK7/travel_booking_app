@@ -156,7 +156,7 @@ const TravelDetails = () => {
                                 <FaArrowLeft />
                             </Link>
                     
-                            <h1>{result.name}</h1>
+                            <h1>{result.name_package}</h1>
                             <h2>{result.price}/pessoa</h2>
                             <img src={result.file.url} alt={result.name}/>
                             <h3>{result.description}</h3>
