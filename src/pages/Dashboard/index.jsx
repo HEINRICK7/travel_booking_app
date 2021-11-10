@@ -384,6 +384,7 @@ const Dashboard = () => {
                         </Form.Item>
                     </Col>
               </Row>
+              <Divider orientation="left">Itinerário</Divider>
                     {itinerary.map((item, index)=> (
 
                       <Space key={index} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
@@ -403,7 +404,7 @@ const Dashboard = () => {
                         onChange={ e => handleChangeItinerary(e, index)}
                         
                         />
-
+                        
                         <Input 
                         name="departure_time_itinerary"
                         value={item.departure_time_itinerary}
