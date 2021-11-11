@@ -1,9 +1,13 @@
+.site-layout {
+  height:auto;
+}
 .trigger {
     padding: 0 24px;
     font-size: 18px;
     line-height: 64px;
     cursor: pointer;
     transition: color 0.3s;
+    
   }
   
 .trigger:hover {
@@ -55,10 +59,11 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .dashboard_card_main_rigth {
-  height: 100vh;
+  height: 60vh;
   margin: 0 50px;
   background: #FFFFFF;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  overflow-y: scroll;
 }
 .dashboard_card_main_left {
   margin-left: 27px;
@@ -91,8 +96,7 @@
   margin: 80px 0;
   
 }
-@media screen and (max-width: 960px){
-     
+@media screen and (max-width: 960px){ 
   .container_form{
       width:100%;
   }
@@ -116,7 +120,10 @@
 
   .dashboard_card_main_rigth {
     width: 168vw;
-    height: 100%;
+    height: 60vh;
+    background: #FFFFFF;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    overflow-y: scroll;
     margin: 0 -20px;
   }
   .dashboard_card_main_rigth

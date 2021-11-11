@@ -1,6 +1,6 @@
-import React,{useState, useEffect} from 'react';
+import React,{ useState, useEffect } from 'react';
 
-import { Drawer, Form, Button, Col, Row, Input,Space, Divider, message } from 'antd';
+import { Drawer, Form, Button, Col, Row, Input,Space, Divider, message, Avatar,Layout, Menu, Image, Statistic } from 'antd';
 
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 
@@ -16,7 +16,6 @@ import FileList from '../../Components/FileList/index'
 
 import { uniqueId } from 'lodash';
 
-import { Avatar,Layout, Menu, Image, Statistic} from 'antd';
 import {
   UserOutlined,
   DashboardOutlined,
@@ -194,6 +193,7 @@ const Dashboard = () => {
             </Menu.Item>
           </Menu>
         </Sider>
+
         <Layout className="site-layout">
           <Header className="site-layout-background-header">
             {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
@@ -255,7 +255,7 @@ const Dashboard = () => {
             <Row className="layout-main" gutter={[8, 8]}>
             
                 <Col className="dashboard_card_main_rigth" span={12}>
-                <Divider orientation="left" style={{fontSize:22}} plain>
+                <Divider orientation="left" style={{fontSize:22,backgroundColor: 'white'}} plain>
                 <Avatar src={<Image src="https://joeschmoe.io/api/v1/random" style={{ width: 32 }} />} />
                   Usuarios Recentes
                 </Divider>
