@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 
 import { Drawer, Form, Button, Col, Row, Input,Space, Divider, message } from 'antd';
 
@@ -8,7 +8,7 @@ import Logo from '../../assets/logo.svg';
 
 import { MdCardTravel } from 'react-icons/md';
 
-import api from '../../services/api';
+import api from '../../services/api'; 
 
 import Upload from '../../Components/Upload/index';
 
@@ -16,12 +16,16 @@ import FileList from '../../Components/FileList/index'
 
 import { uniqueId } from 'lodash';
 
-import { Layout, Menu} from 'antd';
+import { Avatar,Layout, Menu, Image, Statistic} from 'antd';
 import {
+  UserOutlined,
   DashboardOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UploadOutlined,
+  WhatsAppOutlined,
+  ArrowUpOutlined
+  
 } from '@ant-design/icons';
 
 
@@ -31,6 +35,8 @@ import './dashboard.css';
 
 const Dashboard = () => {
     const [collapsed, setCollapsed] = useState(true);
+
+    const [results, setResults] = useState([]);
 
     const [name_package, setName_package] = useState('')
     const [city, setCity] = useState('')
@@ -45,6 +51,14 @@ const Dashboard = () => {
     const [uploadedFiles, setUploadedFiles] = useState([])
     const [itinerary, setItinerary] = useState([])
     
+    useEffect(() => {
+     
+          api.get('travel_user')
+          .then(response => {
+              setResults([response.data.travelersUsers])
+          })
+   },[]);
+   console.log(results)
     const addInputButton = () => {
       setItinerary([...itinerary, {
         title: '',
@@ -159,7 +173,7 @@ const Dashboard = () => {
         setVisible(false);
         
     };
-   
+    
     return (
         <>
         <Layout>
@@ -181,36 +195,95 @@ const Dashboard = () => {
           </Menu>
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" 
-           style={{
-            height: '20vh',
-            padding: 0,
-            margin: '0px 16px',
-            minHeight: 280,
-          }}>
+          <Header className="site-layout-background-header">
             {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
               className: 'trigger',
               onClick: toggle,
             })}
 
-              <Row gutter={[6, 16]}>
-                  <Col className="dashboard_card" span={6}/>
-                  <Col className="dashboard_card" span={6}/>
-                  <Col className="dashboard_card" span={6} />
+              <Row className="header_card" gutter={[6, 16]}>
+                  <Col className="dashboard_card_header" span={6}>
+                  <Statistic
+                    className="card_daily_sales"
+                    title="Vendas Diárias"
+                    value={111.28}
+                    precision={2}
+                    valueStyle={{ 
+                      color: '#2593fa',
+                      fontSize:42,
+                      fontWeight: 900
+                    }}
+                    suffix={<ArrowUpOutlined />}
+                    prefix="R$"
+                  />
+                  </Col>
+                  <Col className="dashboard_card_header" span={6}>
+                    <Statistic
+                      className="card_daily_sales"
+                      title="Vendas Mensais"
+                      value={1500.00}
+                      precision={2}
+                      valueStyle={{ 
+                        color: '#2593fa',
+                        fontSize:42,
+                        fontWeight: 900
+                      }}
+                      suffix={<ArrowUpOutlined />}
+                      prefix="R$"
+                    />
+                  </Col>
+                  <Col className="dashboard_card_header" span={6}>
+                    <Statistic
+                        className="card_daily_sales"
+                        title="Vendas Anuais"
+                        value={12000}
+                        precision={2}
+                        valueStyle={{ 
+                          color: '#2593fa',
+                          fontSize:42,
+                          fontWeight: 900
+                        }}
+                        suffix={<ArrowUpOutlined />}
+                        prefix="R$"
+                    />
+                  </Col>
                 </Row>
           </Header>
           <Content
             className="site-layout-background"
-            style={{
-              height: '100vh',
-              margin: '24px 16px',
-              padding: 24,
-              minHeight: 280,
-            }}
           >
-            <Row gutter={[8, 8]}>
-                <Col className="dashboard_card_main" span={14} />
-                <Col className="dashboard_card_main" span={6} />
+            <Row className="layout-main" gutter={[8, 8]}>
+            
+                <Col className="dashboard_card_main_rigth" span={12}>
+                <Divider orientation="left" style={{fontSize:22}} plain>
+                <Avatar src={<Image src="https://joeschmoe.io/api/v1/random" style={{ width: 32 }} />} />
+                  Usuarios Recentes
+                </Divider>
+                  {results.map(result => result.map( res => (
+                  <>  
+                   <Divider />
+                    <div className="container_users">
+                      <div className="table_users">
+                        <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+                        <p>{res.nome}</p>
+                      </div>
+                      <div>
+                        <p><b>Pacote: </b>{res.travel_id.map(list => list.name_package)}</p>
+                        <p><b>Data da Viagem: </b>{res.travel_id.map(list => list.date_initial)}</p>
+                        <p className="phoneTable" onClick ={ () => {
+                           window.open(`https://api.whatsapp.com/send?phone=${res.telefone}`, "_blank")
+                        }}>< WhatsAppOutlined className="iconTable"/>{res.telefone}</p>
+                      </div>
+                      <div className="table_button">
+                        <p className="reject">rejeitar</p>
+                        <p className="approve">aprovar</p>
+                      </div>
+                      
+                    </div>
+                  </>
+                  )))}
+                </Col>
+                <Col className="dashboard_card_main_left" span={10} />
             </Row>
           </Content>
         </Layout>

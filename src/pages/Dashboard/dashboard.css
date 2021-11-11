@@ -17,8 +17,17 @@
   }
   
   .site-layout .site-layout-background {
-    background: #fff;
+    
+    background: #f0f4f7;
   }
+  .site-layout .site-layout-background-header{
+    height: auto; 
+    width: 100%;
+    padding: 0;
+    margin: 0px 16px;
+    background: #f0f4f7;
+  }      
+            
 .logo img {
     
     border-radius:50%
@@ -39,17 +48,26 @@
 .menu_item:hover{
   background:#fff;
 }
-.dashboard_card {
+.dashboard_card_header {
   height: 25vh;
   margin: 0 auto;
-  background: #f1e8e8;
+  background: #FFFFFF;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
-.dashboard_card_main {
-  height: 70vh;
-  margin-left: 5%;
-  background: #f1e8e8;
+.dashboard_card_main_rigth {
+  height: 100vh;
+  margin: 0 50px;
+  background: #FFFFFF;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
-
+.dashboard_card_main_left {
+  margin-left: 27px;
+  background: #FFFFFF;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.container_users {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
 .site-form-in-drawer-wrapper {
   position: absolute;
   right: 0px;
@@ -64,21 +82,144 @@
 .col_input {
   width: 100%;
 }
-@media screen and (max-width: 960px){
 
+.header_card .dashboard_card_header .card_daily_sales {
+ 
+  display: block;
+  text-align: center;
+
+  margin: 80px 0;
+  
+}
+@media screen and (max-width: 960px){
+     
   .container_form{
       width:100%;
   }
-  .container_input{
+  .container_input {
       display: grid;
       grid-template-columns: 1fr;
 
   }
-  .container_textarea{
+  .container_textarea {
       width: 95%;
       
   }
   .col_input {
       width: 60vw;
   }
+  .layout-main{
+    display: grid;
+    grid-template-columns: 1fr;
+    
+  }
+
+  .dashboard_card_main_rigth {
+    width: 168vw;
+    height: 100%;
+    margin: 0 -20px;
+  }
+  .dashboard_card_main_rigth
+  .container_users {
+    display: block;
+    text-align: center;
+  
+  }
+  .dashboard_card_main_rigth
+  .table_button {
+    justify-content: end;
+  }
+  .dashboard_card_main_left {
+    margin-top:50px;
+    margin-left: 0;
+  
+  }
+  .header_card{
+    display:grid;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+  }
+  .dashboard_card_header{
+    background-color: #FFFFFF;
+    width: 325vw;
+    margin:0 -9px;
+    
+  }
+}
+
+
+.container_users {
+  display: flex;
+  justify-content:space-between;
+  padding: 10px;
+  
+}
+.container_users:hover {
+ background-color: #fff;
+
+}
+.table_users {
+  display: flex;
+  margin-left: 20px;
+  margin-right: 25px;
+
+}
+
+.table_users p {
+  margin: 6px 10px ;
+
+}
+.table_button{
+  display: flex;
+  margin-right: 20px;
+}
+.table_button p {
+  margin-right: 35px;
+  padding: 10px;
+  width: auto;
+  height: 40px;
+  border-radius: 5px;
+  color: #FFFFFF;
+  font-weight: bold;
+  cursor: pointer;
+}
+.table_button p.reject {
+  background: #FF512F;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #DD2476, #FF512F);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #DD2476, #FF512F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+.table_button p.approve {
+  background: #134E5E;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #71B280, #134E5E);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #71B280, #134E5E); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+.phoneTable {
+  width: auto;
+  background: #1D976C;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #93F9B9, #1D976C);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #93F9B9, #1D976C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px;
+  color: #FFFFFF;
+  font-weight: bold;
+  cursor: pointer;
+
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+.iconTable {
+  margin-right: 5px;
+}
+.site-layout-background{
+  height: 100vh;
+  margin: 24px 16px;
+  padding: 24px;
+  min-height: 280px;
 }
