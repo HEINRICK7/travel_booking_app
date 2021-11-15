@@ -1,6 +1,6 @@
 import React,{ useState, useEffect } from 'react';
 
-import { Drawer, Form, Button, Col, Row, Input,Space, Divider, message, Avatar,Layout, Menu, Image, Statistic } from 'antd';
+import { Drawer, Form, Button, Col, Row, Input,Space, Divider, message, Avatar,Layout, Menu, Image, Statistic, Modal } from 'antd';
 
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 
@@ -38,6 +38,8 @@ const Dashboard = () => {
     moment.locale('pt-br');
 
     const [collapsed, setCollapsed] = useState(true);
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const [results, setResults] = useState([]);
     const [resultsApprove, setResultsApprove] = useState([]);
@@ -186,8 +188,6 @@ const Dashboard = () => {
     };
 
     const handleDelete = async (_id) => {
-      if(window.confirm('Voce realmente deseja deletar esse usuario?') === true){
-
             await api.delete(`travel_user/${_id}`,{
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -196,11 +196,8 @@ const Dashboard = () => {
             })
         
             setResults(results.filter(result => result._id !== _id)) 
-        }else{
-            console.log('Cancelar')
-        }
       }
-      const handleApprove = async (_id) => {
+    const handleApprove = async (_id) => {
         let dataApprove;
          results.map(result => result.map(res => (
             dataApprove = {
@@ -215,8 +212,6 @@ const Dashboard = () => {
             travel_id: res.travel_id
           
         })))
-        if(window.confirm(`Voce realmente deseja Aprovar esse usuario? ${_id}`) === true ){
-             
               await api.post(`travel_user_approve/${_id}`,dataApprove, {
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -224,14 +219,24 @@ const Dashboard = () => {
                   }
               });
               setResultsApprove(results.filter(result => result.map(res => res._id !== _id)))
-              }
-          else{
-              console.log('Cancelar')
-          }
+         
         }
-    const handleReload = () => {
+  
+
+    const showModal = () => {
+      setIsModalVisible(true);
+      
+    };
+  
+    const handleOk = () => {
+      setIsModalVisible(false);
       document.location.reload(false);
-    }
+      handleDelete()
+    };
+  
+    const handleCancel = () => {
+      setIsModalVisible(false);
+    };
     console.log('AA',resultsApprove);
     console.log('Approve',results.map(result => result.filter(res => (res._id)))) 
     return (
@@ -336,8 +341,11 @@ const Dashboard = () => {
                         }}>< WhatsAppOutlined className="iconTable"/>{res.telefone}</p>
                       </div>
                       <div className="table_button">
-                        <button className="reject" onClick={(()=>{ handleReload(handleDelete(res._id))})}>rejeitar</button>
-                        <button className="approve" onClick={(()=>{handleReload(handleApprove(res._id))})}>aprovar</button>
+                       
+                        <button className="reject" onClick={(() => {showModal(handleDelete(res._id))})}>rejeitar</button>
+                        <button className="approve" onClick={(()=>{showModal(handleApprove(res._id))})}>aprovar</button>
+                        <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}/>
+                              
                       </div>
                       
                     </div>
