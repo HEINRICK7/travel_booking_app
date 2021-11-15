@@ -202,23 +202,22 @@ const Dashboard = () => {
       }
       const handleApprove = async (_id) => {
         let dataApprove;
-         results.map(result => result.map(res => {
-           if(res._id === _id){
-          dataApprove = {
-          cpf: res.cpf,
-          nome :res.nome,
-          data_nasc: res.data_nasc,
-          telefone: res.telefone,
-          cidade: res.cidade,
-          bairro: res.bairro,
-          rua: res.rua,
-          email:res.email,
-          travel_id: res.travel_id
-          }
-        }}))
+         results.map(result => result.map(res => (
+            dataApprove = {
+            cpf: res.cpf,
+            nome :res.nome,
+            data_nasc: res.data_nasc,
+            telefone: res.telefone,
+            cidade: res.cidade,
+            bairro: res.bairro,
+            rua: res.rua,
+            email:res.email,
+            travel_id: res.travel_id
+          
+        })))
         if(window.confirm(`Voce realmente deseja Aprovar esse usuario? ${_id}`) === true ){
              
-              api.post(`travel_user_approve/${_id}`,dataApprove, {
+              await api.post(`travel_user_approve/${_id}`,dataApprove, {
                 headers: {
                   Authorization: `Bearer ${token}`,
             
@@ -337,8 +336,8 @@ const Dashboard = () => {
                         }}>< WhatsAppOutlined className="iconTable"/>{res.telefone}</p>
                       </div>
                       <div className="table_button">
-                        <p className="reject" onClick={(()=>{ handleReload(handleDelete(res._id))})}>rejeitar</p>
-                        <p className="approve" onClick={(()=>{handleReload(handleApprove(res._id))})}>aprovar</p>
+                        <button className="reject" onClick={(()=>{ handleReload(handleDelete(res._id))})}>rejeitar</button>
+                        <button className="approve" onClick={(()=>{handleReload(handleApprove(res._id))})}>aprovar</button>
                       </div>
                       
                     </div>
