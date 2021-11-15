@@ -15,6 +15,7 @@ import Upload from '../../Components/Upload/index';
 import FileList from '../../Components/FileList/index'
 
 import { uniqueId } from 'lodash';
+import moment from 'moment';
 
 import {
   UserOutlined,
@@ -33,9 +34,13 @@ import './dashboard.css';
 
 
 const Dashboard = () => {
+
+    moment.locale('pt-br');
+
     const [collapsed, setCollapsed] = useState(true);
 
     const [results, setResults] = useState([]);
+    const [resultsApprove, setResultsApprove] = useState([]);
 
     const [name_package, setName_package] = useState('')
     const [city, setCity] = useState('')
@@ -49,15 +54,23 @@ const Dashboard = () => {
     const [description, setDescription] = useState('')
     const [uploadedFiles, setUploadedFiles] = useState([])
     const [itinerary, setItinerary] = useState([])
+
+    const token = localStorage.getItem('token');
     
     useEffect(() => {
      
           api.get('travel_user')
           .then(response => {
               setResults([response.data.travelersUsers])
+              console.log('Aki',response.data.travelersUsers)
+          });
+
+          api.get('travel_user_approve_all')
+          .then(response => {
+              setResultsApprove([response.data.travelersUsers])
+              console.log('Ali',response.data.travelersUsers)
           })
    },[]);
-   console.log(results)
     const addInputButton = () => {
       setItinerary([...itinerary, {
         title: '',
@@ -147,7 +160,6 @@ const Dashboard = () => {
     
     }
 
-    console.log(data);
       const key = 'updatable'
          
             await api.post('travel_register', data)
@@ -172,7 +184,57 @@ const Dashboard = () => {
         setVisible(false);
         
     };
-    
+
+    const handleDelete = async (_id) => {
+      if(window.confirm('Voce realmente deseja deletar esse usuario?') === true){
+
+            await api.delete(`travel_user/${_id}`,{
+              headers: {
+                Authorization: `Bearer ${token}`,
+          
+                }
+            })
+        
+            setResults(results.filter(result => result._id !== _id)) 
+        }else{
+            console.log('Cancelar')
+        }
+      }
+      const handleApprove = async (_id) => {
+        let dataApprove;
+         results.map(result => result.map(res => {
+           if(res._id === _id){
+          dataApprove = {
+          cpf: res.cpf,
+          nome :res.nome,
+          data_nasc: res.data_nasc,
+          telefone: res.telefone,
+          cidade: res.cidade,
+          bairro: res.bairro,
+          rua: res.rua,
+          email:res.email,
+          travel_id: res.travel_id
+          }
+        }}))
+        if(window.confirm(`Voce realmente deseja Aprovar esse usuario? ${_id}`) === true ){
+             
+              api.post(`travel_user_approve/${_id}`,dataApprove, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+            
+                  }
+              });
+              setResultsApprove(results.filter(result => result.map(res => res._id !== _id)))
+              }
+          else{
+              console.log('Cancelar')
+          }
+        }
+    const handleReload = () => {
+      document.location.reload(false);
+    }
+    console.log('AA',resultsApprove);
+    console.log('Approve',results.map(result => result.filter(res => (res._id)))) 
     return (
         <>
         <Layout>
@@ -261,7 +323,7 @@ const Dashboard = () => {
                 </Divider>
                   {results.map(result => result.map( res => (
                   <>  
-                   <Divider />
+                   <Divider key={res._id}/>
                     <div className="container_users">
                       <div className="table_users">
                         <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
@@ -269,21 +331,45 @@ const Dashboard = () => {
                       </div>
                       <div>
                         <p><b>Pacote: </b>{res.travel_id.map(list => list.name_package)}</p>
-                        <p><b>Data da Viagem: </b>{res.travel_id.map(list => list.date_initial)}</p>
+                        <p><b>Data da Viagem: </b>{moment(res.travel_id.map(list => list.date_initial)).format('DD/MM/YYYY')}</p>
                         <p className="phoneTable" onClick ={ () => {
                            window.open(`https://api.whatsapp.com/send?phone=${res.telefone}`, "_blank")
                         }}>< WhatsAppOutlined className="iconTable"/>{res.telefone}</p>
                       </div>
                       <div className="table_button">
-                        <p className="reject">rejeitar</p>
-                        <p className="approve">aprovar</p>
+                        <p className="reject" onClick={(()=>{ handleReload(handleDelete(res._id))})}>rejeitar</p>
+                        <p className="approve" onClick={(()=>{handleReload(handleApprove(res._id))})}>aprovar</p>
                       </div>
                       
                     </div>
                   </>
                   )))}
                 </Col>
-                <Col className="dashboard_card_main_left" span={10} />
+                <Col className="dashboard_card_main_left" span={10} >
+                <Divider orientation="left" style={{fontSize:22,backgroundColor: 'white'}} plain>
+                <Avatar src={<Image src="https://joeschmoe.io/api/v1/random" style={{ width: 32 }} />} />
+                  Usuarios Cadastrados
+                </Divider>
+                        
+                {resultsApprove.map(result => result.map( res => (
+                  <>  
+                   <Divider key={res._id}/>
+                    <div className="container_users">
+                      <div className="table_users">
+                        <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+                        <p>{res.nome}</p>
+                      </div>
+                      <div>
+                        <p><b>Pacote: </b>{res.travel_id.map(list => list.name_package)}</p>
+                        <p><b>Data da Viagem: </b>{moment(res.travel_id.map(list => list.date_initial)).format('DD/MM/YYYY')}</p>
+                        <p className="phoneTable" onClick ={ () => {
+                           window.open(`https://api.whatsapp.com/send?phone=${res.telefone}`, "_blank")
+                        }}>< WhatsAppOutlined className="iconTable"/>{res.telefone}</p>
+                      </div>
+                    </div>
+                  </>
+                  )))}
+                </Col>
             </Row>
           </Content>
         </Layout>
