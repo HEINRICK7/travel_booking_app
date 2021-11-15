@@ -69,6 +69,8 @@
   margin-left: 27px;
   background: #FFFFFF;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  height: 60vh;
+  overflow-y: scroll;
 }
 .container_users {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -139,6 +141,9 @@
   .dashboard_card_main_left {
     margin-top:50px;
     margin-left: 0;
+    height: 60vh;
+    overflow-y: scroll;
+    margin: 0 -20px;
   
   }
   .header_card{
