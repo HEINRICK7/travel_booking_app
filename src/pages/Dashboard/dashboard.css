@@ -182,21 +182,23 @@
   margin: 6px 10px ;
 
 }
+
 .table_button{
   display: flex;
   margin-right: 20px;
 }
-.table_button p {
+.table_button button{
   margin-right: 35px;
   padding: 10px;
   width: auto;
   height: 40px;
+  border: 0;
   border-radius: 5px;
   color: #FFFFFF;
   font-weight: bold;
   cursor: pointer;
 }
-.table_button p.reject {
+.table_button .reject {
   background: #FF512F;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #DD2476, #FF512F);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #DD2476, #FF512F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -204,7 +206,7 @@
   
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
-.table_button p.approve {
+.table_button .approve {
   background: #134E5E;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #71B280, #134E5E);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #71B280, #134E5E); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
