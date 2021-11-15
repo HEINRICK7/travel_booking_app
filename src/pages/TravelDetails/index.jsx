@@ -105,6 +105,7 @@ const TravelDetails = () => {
             telefoneMask(e.target.value)
         )
     }
+
     let cpfMsg = cpf;
     let nomeMsg = nome;
     let dataNascMsg = data_nasc;
@@ -152,7 +153,7 @@ const TravelDetails = () => {
                        
                         {results.map(result => (
                         <>
-                            <Link className="icon_back" to={"/travel"}>
+                            <Link className="icon_back" to={"/travel"} key={result._id}>
                                 <FaArrowLeft />
                             </Link>
                     
@@ -259,7 +260,6 @@ const TravelDetails = () => {
                             </div>
                            
                         </div>
-
 
                     </div>
                     </form> 
