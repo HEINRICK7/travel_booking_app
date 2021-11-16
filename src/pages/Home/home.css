@@ -33,8 +33,13 @@
     font-size: 70px;
     line-height: 92px;
     letter-spacing: 0.025em;
-
-    color: #635995;
+}
+.section_left p{
+    background: -webkit-linear-gradient(
+        #6610F2, #1f9ed8
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 
 }
 .section_left button {
@@ -105,12 +110,15 @@
     }
     .section_left p{
         margin: -70px 8px 30px 8px;
-        font-style: normal;
         font-weight: 500;
         font-size: 35px;
         line-height: 45px;
         letter-spacing: 0.025em;
-        color: #635995;
+        background: -webkit-linear-gradient(
+            #6610F2, #51b6f0
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     
     }
     .section_left button {

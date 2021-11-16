@@ -32,14 +32,14 @@ import {
 import './dashboard.css';
 
 
-
 const Dashboard = () => {
 
     moment.locale('pt-br');
 
     const [collapsed, setCollapsed] = useState(true);
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isModalVisibleApprove, setIsModalVisibleApprove] = useState(false);
+    const [isModalVisibleReject, setIsModalVisibleReject] = useState(false);
 
     const [results, setResults] = useState([]);
     const [resultsApprove, setResultsApprove] = useState([]);
@@ -72,7 +72,7 @@ const Dashboard = () => {
               setResultsApprove([response.data.travelersUsers])
               console.log('Ali',response.data.travelersUsers)
           })
-   },[]);
+   },[token]);
     const addInputButton = () => {
       setItinerary([...itinerary, {
         title: '',
@@ -163,6 +163,7 @@ const Dashboard = () => {
     }
 
       const key = 'updatable'
+      console.log(data)
          
             await api.post('travel_register', data)
                
@@ -196,6 +197,8 @@ const Dashboard = () => {
             })
         
             setResults(results.filter(result => result._id !== _id)) 
+            window.location.reload(false);
+            setIsModalVisibleReject(false); 
       }
     const handleApprove = async (_id) => {
         let dataApprove;
@@ -219,24 +222,31 @@ const Dashboard = () => {
                   }
               });
               setResultsApprove(results.filter(result => result.map(res => res._id !== _id)))
+              window.location.reload(false);
+              setIsModalVisibleApprove(false); 
          
-        }
-  
-
-    const showModal = () => {
-      setIsModalVisible(true);
-      
-    };
-  
-    const handleOk = () => {
-      setIsModalVisible(false);
-      
-    };
-  
-    const handleCancel = () => {
-      setIsModalVisible(false);
-    };
+    }
+   
+      const handleCancelApprove = () => {
+         setIsModalVisibleApprove(false); 
+      };
     
+      const handleCancelReject = () => {
+        setIsModalVisibleReject(false); 
+        
+      }
+
+      const showModalApprove = () => {
+      setIsModalVisibleApprove(true);
+     
+      };
+      const showModalReject = () => {
+      setIsModalVisibleReject(true);
+     
+      
+    }
+  console.log(itinerary)
+  
     return (
         <>
         <Layout>
@@ -339,10 +349,13 @@ const Dashboard = () => {
                         }}>< WhatsAppOutlined className="iconTable"/>{res.telefone}</p>
                       </div>
                       <div className="table_button">
+                        <Modal title="Deletar" visible={isModalVisibleReject} onOk={() => {handleDelete(res._id)}} onCancel={handleCancelReject}/>
+                        <button className="reject" onClick={showModalReject} >rejeitar</button>
                        
-                        <button className="reject" onClick={(() => {showModal(handleDelete(res._id))})}>rejeitar</button>
-                        <button className="approve" onClick={(()=>{showModal(handleApprove(res._id))})}>aprovar</button>
-                        <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}/>
+
+                        <button className="approve" onClick={showModalApprove} >aprovar</button>   
+                        <Modal title="Aprovar" visible={isModalVisibleApprove} onOk={() => {handleApprove(res._id)}} onCancel={handleCancelApprove}/>
+                        
                               
                       </div>
                       
