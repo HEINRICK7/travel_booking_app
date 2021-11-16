@@ -121,7 +121,7 @@
   }
 
   .dashboard_card_main_rigth {
-    width: 168vw;
+    width: 180vw;
     height: 60vh;
     background: #FFFFFF;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -138,9 +138,19 @@
   .table_button {
     justify-content: end;
   }
+  .dashboard_card_main_left
+  .container_users {
+    display: block;
+    text-align: center;
+  
+  }
+  .dashboard_card_main_left
+  .table_button {
+    justify-content: end;
+  }
   .dashboard_card_main_left {
+    width: 180vw;
     margin-top:50px;
-    margin-left: 0;
     height: 60vh;
     overflow-y: scroll;
     margin: 0 -20px;

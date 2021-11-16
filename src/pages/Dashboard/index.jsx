@@ -230,15 +230,13 @@ const Dashboard = () => {
   
     const handleOk = () => {
       setIsModalVisible(false);
-      document.location.reload(false);
-      handleDelete()
+      
     };
   
     const handleCancel = () => {
       setIsModalVisible(false);
     };
-    console.log('AA',resultsApprove);
-    console.log('Approve',results.map(result => result.filter(res => (res._id)))) 
+    
     return (
         <>
         <Layout>
@@ -320,7 +318,7 @@ const Dashboard = () => {
           >
             <Row className="layout-main" gutter={[8, 8]}>
             
-                <Col className="dashboard_card_main_rigth" span={12}>
+                <Col className="dashboard_card_main_rigth" span={11}>
                 <Divider orientation="left" style={{fontSize:22,backgroundColor: 'white'}} plain>
                 <Avatar src={<Image src="https://joeschmoe.io/api/v1/random" style={{ width: 32 }} />} />
                   Usuarios Recentes
@@ -352,7 +350,7 @@ const Dashboard = () => {
                   </>
                   )))}
                 </Col>
-                <Col className="dashboard_card_main_left" span={10} >
+                <Col className="dashboard_card_main_left" span={11} >
                 <Divider orientation="left" style={{fontSize:22,backgroundColor: 'white'}} plain>
                 <Avatar src={<Image src="https://joeschmoe.io/api/v1/random" style={{ width: 32 }} />} />
                   Usuarios Cadastrados
