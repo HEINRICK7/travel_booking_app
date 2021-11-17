@@ -107,13 +107,13 @@ const TravelDetails = () => {
             telefoneMask(e.target.value)
         )
     }
+    
     const handleContrato = (e) => {
         setContrato(
-            `contrato = ${e.target.name}:${e.target.checked} ? 'aceito': 'não aceito'`
+           e.target.checked ? 'aceito' : 'nao aceito'
         )
-        console.log(`contrato = ${e.target.name}: ${e.target.checked}` ? 'aceito': 'não aceito')
+       
     }
-
     const infoContrato = () => {
         Modal.info({
           title: 'This is a notification message',
@@ -277,8 +277,8 @@ const TravelDetails = () => {
                             />
                             
                             <Checkbox
-                            name="contrato"
                             onChange={handleContrato}
+                            required
                             ><div onClick={infoContrato}>Declaro que li e aceito os termos de contrato de serviços</div></Checkbox>
                             
                             <div className="form_button">
