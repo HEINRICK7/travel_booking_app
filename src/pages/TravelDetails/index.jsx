@@ -13,7 +13,7 @@ import './travelDetails.css';
 import Header from '../../Components/Header/index';
 import Footer from '../../Components/Footer/index';
 
-import { Steps, message } from 'antd';
+import { Steps, message, Checkbox, Modal } from 'antd';
 
 const TravelDetails = () => {
     
@@ -28,6 +28,7 @@ const TravelDetails = () => {
     const [bairro, setBairro] = useState('')
     const [rua, setRua] = useState('')
     const [email, setEmail] = useState('')
+    const [contrato, setContrato] = useState('')
 
     
     const params = useParams();
@@ -60,6 +61,7 @@ const TravelDetails = () => {
             bairro,
             rua,
             email,
+            contrato,
             travel_id: _id
         }
         const key = 'updatable'
@@ -104,6 +106,26 @@ const TravelDetails = () => {
         setTelefone(
             telefoneMask(e.target.value)
         )
+    }
+    const handleContrato = (e) => {
+        setContrato(
+            `contrato = ${e.target.name}:${e.target.checked} ? 'aceito': 'não aceito'`
+        )
+        console.log(`contrato = ${e.target.name}: ${e.target.checked}` ? 'aceito': 'não aceito')
+    }
+
+    const infoContrato = () => {
+        Modal.info({
+          title: 'This is a notification message',
+          content: (
+            <div>
+              <p>some messages...some messages...</p>
+              <p>some messages...some messages...</p>
+            </div>
+          ),
+          onOk() {
+          },
+        });
     }
 
     let cpfMsg = cpf;
@@ -253,6 +275,11 @@ const TravelDetails = () => {
                             onChange={ e => setEmail(e.target.value)}
                             required
                             />
+                            
+                            <Checkbox
+                            name="contrato"
+                            onChange={handleContrato}
+                            ><div onClick={infoContrato}>Declaro que li e aceito os termos de contrato de serviços</div></Checkbox>
                             
                             <div className="form_button">
                                 < FaWhatsapp className="icon_button"/>
