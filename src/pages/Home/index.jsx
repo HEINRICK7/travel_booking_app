@@ -22,9 +22,9 @@ const Home = () => {
                 
             </div>
             <div className="section_right">
-            <img className="Image1" src={Image1} alt="logo" />
-            <img className="Image2" src={Image2} alt="logo" />
-            <img className="Image3" src={Image3} alt="logo" />
+            <img className="Image1" src={Image1} alt="img1" />
+            <img className="Image2" src={Image2} alt="img" />
+            <img className="Image3" src={Image3} alt="img3" />
             </div>
         </div>
         < Footer className="footer" />

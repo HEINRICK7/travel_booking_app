@@ -31,8 +31,8 @@ const Header = () => {
         <>
             <div className="container_header">
                 
-                <Link to='/' className='logo' onClick={closeMobileMenu}>
-                    <img src={Logo} style={{ width: 86, borderRadius: '50%' }} alt="logo" />
+                <Link to='/' className='logo_header' onClick={closeMobileMenu}>
+                    <img src={Logo} alt="logo" />
                     <p>D&E Turismo</p>
                 </Link>
 

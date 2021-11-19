@@ -1,8 +1,23 @@
 import React,{ useState, useEffect } from 'react';
 
-import { Drawer, Form, Button, Col, Row, Input,Space, Divider, message, Avatar,Layout, Menu, Image, Statistic, Modal } from 'antd';
-
-import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
+import { 
+  Drawer, 
+  Form, 
+  Button, 
+  Col, 
+  Row, 
+  Input,
+  Space, 
+  Divider, 
+  message, 
+  Avatar,
+  Layout, 
+  Menu, 
+  Image, 
+  Statistic, 
+  Modal, 
+  Table 
+} from 'antd';
 
 import Logo from '../../assets/logo.svg';
 
@@ -15,29 +30,35 @@ import Upload from '../../Components/Upload/index';
 import FileList from '../../Components/FileList/index'
 
 import { uniqueId } from 'lodash';
+
 import moment from 'moment';
 
+import Highlighter from 'react-highlight-words';
+
 import {
+
   UserOutlined,
   DashboardOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UploadOutlined,
   WhatsAppOutlined,
-  ArrowUpOutlined
+  ArrowUpOutlined,
+  SearchOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  PlusOutlined, 
+  MinusCircleOutlined
   
 } from '@ant-design/icons';
 
-
 import './dashboard.css';
-
 
 const Dashboard = () => {
 
     moment.locale('pt-br');
 
     const [collapsed, setCollapsed] = useState(true);
-
     const [isModalVisibleApprove, setIsModalVisibleApprove] = useState(false);
     const [isModalVisibleReject, setIsModalVisibleReject] = useState(false);
 
@@ -57,7 +78,12 @@ const Dashboard = () => {
     const [uploadedFiles, setUploadedFiles] = useState([])
     const [itinerary, setItinerary] = useState([])
 
+    const [searchText, setSearchText] = useState('');
+    const [searchedColumn, setSearchedColum] = useState('');
+
     const token = localStorage.getItem('token');
+
+    let searchInput;
     
     useEffect(() => {
      
@@ -73,6 +99,7 @@ const Dashboard = () => {
               console.log('Ali',response.data.travelersUsers)
           })
    },[token]);
+
     const addInputButton = () => {
       setItinerary([...itinerary, {
         title: '',
@@ -80,6 +107,7 @@ const Dashboard = () => {
         departure_time_itinerary: ''
       }])
     }
+
     const removeInputButton = (position) => {
       setItinerary([...itinerary.filter((_, index) => index !== position)])
     }
@@ -90,6 +118,7 @@ const Dashboard = () => {
       list[index][name] = value;
       setItinerary(list)
     }
+
     const handleUpload = (files) => {
       const uploadedFile= files.map(file => ({
         file,
@@ -172,6 +201,7 @@ const Dashboard = () => {
                     message.success({ content: 'Usuário cadastrado com sucesso.', key, duration: 3 });
                 }, 1000);
     }
+
     const [visible, setVisible] = useState(false);
 
     const { Header, Sider, Content } = Layout;
@@ -183,6 +213,7 @@ const Dashboard = () => {
     const showDrawer = () => {
         setVisible(true);
     } 
+
     const onClose = () => {
         setVisible(false);
         
@@ -199,7 +230,7 @@ const Dashboard = () => {
             setResults(results.filter(result => result._id !== _id)) 
             window.location.reload(false);
             setIsModalVisibleReject(false); 
-      }
+    }
     const handleApprove = async (_id) => {
         let dataApprove;
          results.map(result => result.map(res => (
@@ -227,29 +258,198 @@ const Dashboard = () => {
          
     }
    
-      const handleCancelApprove = () => {
-         setIsModalVisibleApprove(false); 
-      };
+    const handleDeleteApproveUser = async (_id) => {
+      await api.delete(`travel_user_approve_all/${_id}`,{
+        headers: {
+          Authorization: `Bearer ${token}`,
     
-      const handleCancelReject = () => {
+        }
+      })
+  
+      setResultsApprove(resultsApprove.filter(result => result._id !== _id))
+      window.location.reload(false);
+      
+    }
+    const handleCancelApprove = () => {
+         setIsModalVisibleApprove(false); 
+    };
+    
+    const handleCancelReject = () => {
         setIsModalVisibleReject(false); 
         
-      }
+    }
 
-      const showModalApprove = () => {
+    const showModalApprove = () => {
       setIsModalVisibleApprove(true);
      
-      };
-      const showModalReject = () => {
+    };
+    const showModalReject = () => {
       setIsModalVisibleReject(true);
      
       
     }
-  console.log(itinerary)
+    const getColumnSearchProps = dataIndex => ({
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+        <div style={{ padding: 8 }}>
+          <Input
+            ref={node => {
+              searchInput = node;
+            }}
+            placeholder={`Search ${dataIndex}`}
+            value={selectedKeys[0]}
+            onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+            onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            style={{ marginBottom: 8, display: 'block' }}
+          />
+          <Space>
+            <Button
+              type="primary"
+              onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+              icon={<SearchOutlined />}
+              size="small"
+              style={{ width: 90 }}
+            >
+              Search
+            </Button>
+            <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+              Reset
+            </Button>
+            <Button
+              type="link"
+              size="small"
+              onClick={() => {
+                confirm({ closeDropdown: false });
+
+                setSearchText(selectedKeys[0]);
+                setSearchedColum(dataIndex);
+              }}
+            >
+              Filter
+            </Button>
+          </Space>
+        </div>
+      ),
+      filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+      onFilter: (value, record) =>
+        record[dataIndex]
+          ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
+          : '',
+      onFilterDropdownVisibleChange: visible => {
+        if (visible) {
+          setTimeout(() => searchInput.select(), 100);
+        }
+      },
+      render: text =>
+        searchedColumn === dataIndex ? (
+          <Highlighter
+            highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+            searchWords={[searchText]}
+            autoEscape
+            textToHighlight={text ? text.toString() : ''}
+          />
+        ) : (
+          text
+        ),
+    });
   
+    const handleSearch = (selectedKeys, confirm, dataIndex) => {
+      confirm();
+     
+        setSearchText(selectedKeys[0]);
+        setSearchedColum(dataIndex);
+    };
+  
+    const handleReset = clearFilters => {
+      clearFilters();
+      setSearchText('');
+    };
+  console.log('delete',resultsApprove)
+    const columns = [
+      {
+        title: 'CPF',
+        dataIndex: 'cpf',
+        ...getColumnSearchProps('cpf'),
+        sorter: {
+          compare: (a, b) => a.cpf > b.cpf,
+          multiple: 6,
+        },
+      },
+      {
+        title: 'Nome',
+        dataIndex: 'nome',
+        ...getColumnSearchProps('nome'),
+        sorter: {
+          compare: (a, b) => a.nome > b.nome,
+          multiple: 5,
+        },
+      },
+      {
+        title: 'Data_Nasc',
+        dataIndex: 'data_nasc',
+        ...getColumnSearchProps('data_nasc'),
+        sorter: {
+          compare: (a, b) => a.data_nasc < b.data_nasc,
+          multiple: 4,
+        },
+      },
+      {
+        title: 'Telefone',
+        dataIndex: 'telefone',
+        ...getColumnSearchProps('telefone'),
+        sorter: {
+          compare: (a, b) => a.telefone - b.telefone,
+          multiple: 3,
+        },
+      },
+      {
+        title: 'Cidade',
+        dataIndex: 'cidade',
+        ...getColumnSearchProps('cidade'),
+        sorter: {
+          compare: (a, b) => a.cidade - b.cidade,
+          multiple: 2,
+        },
+      },
+      {
+        title: 'Bairro',
+        dataIndex: 'bairro',
+        ...getColumnSearchProps('bairro'),
+      },
+      {
+        title: 'Rua',
+        dataIndex: 'rua',
+        ...getColumnSearchProps('rua'),
+      },
+      {
+        title: 'Email',
+        dataIndex: 'email',
+        ...getColumnSearchProps('email'),
+        sorter: {
+          compare: (a, b) => a.email - b.email,
+          multiple: 1,
+        },
+      },
+      {
+        
+        title: 'Action',
+        dataIndex: '',
+        key: 'x',
+        render: () =>{
+          return (
+            <>
+            
+            <EditOutlined style={{color: 'blue'}} />
+            <DeleteOutlined style={{color: 'red', marginLeft: 20}} onclick={() => {handleDeleteApproveUser(resultsApprove.map(result => (result._id)))}}/>
+            
+            </>
+          )
+        
+      }},
+    ];
+
     return (
-        <>
-        <Layout>
+    <>
+      <Layout style={{height: 'auto'}}>
         <Sider className="sidebar" trigger={null} collapsible collapsed={collapsed}>
           <div className="logo">
           <img src={Logo} alt="logo" />
@@ -321,7 +521,7 @@ const Dashboard = () => {
                         prefix="R$"
                     />
                   </Col>
-                </Row>
+              </Row>
           </Header>
           <Content
             className="site-layout-background"
@@ -333,6 +533,8 @@ const Dashboard = () => {
                 <Avatar src={<Image src="https://joeschmoe.io/api/v1/random" style={{ width: 32 }} />} />
                   Usuarios Recentes
                 </Divider>
+                <div className="dashboard_card_main_rigth_overflow">
+                  
                   {results.map(result => result.map( res => (
                   <>  
                    <Divider key={res._id}/>
@@ -362,14 +564,22 @@ const Dashboard = () => {
                     </div>
                   </>
                   )))}
+                </div>
                 </Col>
                 <Col className="dashboard_card_main_left" span={11} >
                 <Divider orientation="left" style={{fontSize:22,backgroundColor: 'white'}} plain>
                 <Avatar src={<Image src="https://joeschmoe.io/api/v1/random" style={{ width: 32 }} />} />
                   Usuarios Cadastrados
                 </Divider>
-                        
-                {resultsApprove.map(result => result.map( res => (
+                       
+                    <Input
+                      placeholder="input search text"
+                      allowClear
+                      size="large"
+                    />
+                  
+                <div className="dashboard_card_main_left_overflow">        
+                {resultsApprove.map(result => result.map(res => (
                   <>  
                    <Divider key={res._id}/>
                     <div className="container_users">
@@ -387,7 +597,25 @@ const Dashboard = () => {
                     </div>
                   </>
                   )))}
+                </div>  
                 </Col>
+            </Row>
+            <Col span={24}>
+              <div  className="table_main">
+               
+                <Table 
+                className="table"
+                columns={columns} 
+                dataSource={resultsApprove[0]} 
+                pagination={{
+                  total: 2,
+                }}
+                />
+              
+              </div>
+            </Col>
+            <Row>
+
             </Row>
           </Content>
         </Layout>
@@ -408,7 +636,7 @@ const Dashboard = () => {
       
           <Form className="container_form" onSubmit={handleRegisterTravel} layout="vertical" hideRequiredMark>
               <Row className="container_input" gutter={16}>
-                        <Col span={8}>
+                <Col span={8}>
                             <Form.Item
                             name="name_package"
                             label="Nome"
@@ -421,8 +649,8 @@ const Dashboard = () => {
                             onChange={ e => setName_package(e.target.value)}
                              />
                             </Form.Item>
-                        </Col>
-                        <Col span={8}>
+                </Col>
+                <Col span={8}>
                             <Form.Item
                             name="city"
                             label="Cidade"
@@ -435,8 +663,8 @@ const Dashboard = () => {
                             onChange={ e => setCity(e.target.value)}
                             />
                             </Form.Item>
-                        </Col>
-                        <Col span={8}>
+                </Col>
+                <Col span={8}>
                             <Form.Item
                             name="state"
                             label="Estado"
@@ -449,7 +677,7 @@ const Dashboard = () => {
                             onChange={ e => setState(e.target.value)}
                             />
                             </Form.Item>
-                        </Col>
+                </Col>
               </Row>
               <Row className="container_input" gutter={16}>
                         <Col span={8}>
@@ -611,7 +839,7 @@ const Dashboard = () => {
         </Drawer>
         
       </Layout>
-      </>
+    </>
     );
 }
 

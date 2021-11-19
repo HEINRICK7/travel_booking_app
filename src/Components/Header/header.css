@@ -5,13 +5,18 @@
     
 }
 
-.logo {
+.logo_header {
     display:flex;
     text-decoration: none;
 	grid-area: logo;
    
+   
 }
-.logo p {
+.logo_header img {
+    width: 86px;
+    border-radius: 50%;
+}
+.logo_header p {
     font-size: 25px;
     margin: 28px 0 0 10px;
 }
@@ -98,12 +103,16 @@
         font-size: 1.8rem;
         cursor: pointer;
       }
-    .logo {
+    .logo_header{
         position: absolute;
         left:10px;
         top:10px;
+        
     }
-    
+    .logo_header img {
+        width: 70px;
+        border-radius: 50%;
+    }
     .container_header{
         grid-template-areas:
             "logo"
